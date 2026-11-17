@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Developer Portal · Purpose Gateway</title>
+  <meta name="description" content="Purpose Gateway developer portal — API keys, documentation, SDKs, webhooks, usage analytics and live system status." />
+  <meta name="theme-color" content="#0b1040" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2360a5fa'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M9 3h10a8 8 0 0 1 0 16h-5l-2 10H5z'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- ============ ICON SPRITE ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+    <symbol id="i-webhook" viewBox="0 0 24 24"><path d="M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2"/><path d="m6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06"/><path d="m12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8"/></symbol>
+    <symbol id="i-package" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+    <symbol id="i-guide" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></symbol>
+    <symbol id="i-command" viewBox="0 0 24 24"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  </svg>
+
+  <div class="app">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar__inner">
+        <div class="sidebar__head">
+          <a href="#" class="brand" aria-label="Purpose Gateway home">
+            <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+              <defs>
+                <linearGradient id="brandA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
+                <linearGradient id="brandB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient>
+              </defs>
+              <path fill="url(#brandA)" d="M14 4h16a13 13 0 0 1 0 26h-8.5l3-8H30a5 5 0 0 0 0-10H19.6z"/>
+              <path fill="url(#brandB)" d="M14 4h7.6L12.4 44H4.6z"/>
+            </svg>
+            <span class="brand__name">Purpose<br />Gateway</span>
+          </a>
+          <button class="icon-btn icon-btn--ghost sidebar__close" id="sidebarClose" aria-label="Close menu">
+            <svg class="icon"><use href="#i-x"/></svg>
+          </button>
+        </div>
+
+        <nav class="nav" id="mainNav">
+          <a href="#portal" class="nav__item nav__item--primary is-active" aria-current="page"><svg class="icon"><use href="#i-code"/></svg>Developer Portal</a>
+          <a href="#docs" class="nav__item"><svg class="icon"><use href="#i-doc"/></svg>API Documentation</a>
+          <a href="#keys" class="nav__item"><svg class="icon"><use href="#i-key"/></svg>API Keys</a>
+          <a href="#webhooks" class="nav__item"><svg class="icon"><use href="#i-webhook"/></svg>Webhooks</a>
+          <a href="#sdks" class="nav__item"><svg class="icon"><use href="#i-package"/></svg>SDK &amp; Libraries</a>
+          <a href="#guide" class="nav__item"><svg class="icon"><use href="#i-guide"/></svg>Integration Guide</a>
+          <a href="#sandbox" class="nav__item"><svg class="icon"><use href="#i-command"/></svg>Sandbox</a>
+          <a href="#analytics" class="nav__item"><svg class="icon"><use href="#i-chart"/></svg>Analytics</a>
+          <a href="#support" class="nav__item"><svg class="icon"><use href="#i-help"/></svg>Support</a>
+        </nav>
+
+        <div class="promo">
+          <svg class="promo__art" viewBox="0 0 160 110" aria-hidden="true">
+            <defs>
+              <linearGradient id="rkBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c7d2fe"/></linearGradient>
+              <linearGradient id="rkFlame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde047"/><stop offset="1" stop-color="#f97316"/></linearGradient>
+              <radialGradient id="rkGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#6366f1" stop-opacity=".7"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></radialGradient>
+            </defs>
+            <ellipse cx="80" cy="92" rx="70" ry="14" fill="url(#rkGlow)"/>
+            <ellipse cx="80" cy="92" rx="46" ry="7" fill="none" stroke="#818cf8" stroke-opacity=".5"/>
+            <g transform="rotate(40 82 52)">
+              <path d="M82 6c14 10 20 30 16 52H66c-4-22 2-42 16-52z" fill="url(#rkBody)"/>
+              <circle cx="82" cy="32" r="8" fill="#3b5bfd" stroke="#1e3a8a" stroke-width="3"/>
+              <path d="M66 46l-12 16 14-2z" fill="#3b5bfd"/>
+              <path d="M98 46l12 16-14-2z" fill="#3b5bfd"/>
+              <path d="M70 58h24l-4 8H74z" fill="#6366f1"/>
+              <path d="M75 66h14c0 10-7 22-7 22s-7-12-7-22z" fill="url(#rkFlame)"/>
+            </g>
+            <circle cx="22" cy="24" r="1.5" fill="#fff"/><circle cx="140" cy="18" r="1.2" fill="#fff"/><circle cx="132" cy="62" r="1.5" fill="#a5b4fc"/><circle cx="30" cy="66" r="1" fill="#fff"/>
+          </svg>
+          <h3 class="promo__title">Build. Integrate. Grow.</h3>
+          <p class="promo__text">Power your business with Purpose Gateway.</p>
+          <a href="#guide" class="btn btn--blue btn--pill">Get Started <svg class="icon icon--sm"><use href="#i-arrow-right"/></svg></a>
+        </div>
+
+        <div class="profile" id="profile">
+          <button class="profile__btn" id="profileBtn" aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar avatar--photo" id="profileAvatar">IN</span>
+            <span class="profile__meta">
+              <span class="profile__name" id="profileName">—</span>
+              <span class="profile__role" id="profileRole">—</span>
+            </span>
+            <svg class="icon profile__chev"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="menu menu--up" id="profileMenu" role="menu" hidden>
+            <a href="#account" role="menuitem" class="menu__item"><svg class="icon icon--sm"><use href="#i-user"/></svg>Account</a>
+            <a href="#settings" role="menuitem" class="menu__item"><svg class="icon icon--sm"><use href="#i-settings"/></svg>Settings</a>
+            <hr class="menu__sep" />
+            <a href="#logout" role="menuitem" class="menu__item menu__item--danger"><svg class="icon icon--sm"><use href="#i-logout"/></svg>Sign out</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim" hidden></div>
+
+    <!-- ============ MAIN ============ -->
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn topbar__menu" id="menuBtn" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+          <svg class="icon"><use href="#i-menu"/></svg>
+        </button>
+
+        <div class="search" id="search">
+          <svg class="icon search__icon"><use href="#i-search"/></svg>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="Search documentation, endpoints..." aria-label="Search documentation and endpoints" aria-controls="searchResults" />
+          <kbd class="search__kbd" id="searchKbd">(⌘ + K)</kbd>
+          <div class="search__results" id="searchResults" role="listbox" hidden></div>
+        </div>
+
+        <div class="topbar__actions">
+          <label class="sandbox-pill" for="sandboxToggle">
+            <span class="dot dot--green dot--pulse"></span>
+            <span class="sandbox-pill__label">Sandbox <span class="hide-xs">Mode</span></span>
+            <input type="checkbox" id="sandboxToggle" class="switch" role="switch" checked />
+          </label>
+
+          <div class="notif">
+            <button class="icon-btn icon-btn--round" id="notifBtn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+              <svg class="icon"><use href="#i-bell"/></svg>
+              <span class="badge-count" id="notifCount">0</span>
+            </button>
+            <div class="menu menu--panel" id="notifPanel" hidden>
+              <div class="menu__head">
+                <strong>Notifications</strong>
+                <button class="link-btn" id="markAllRead">Mark all as read</button>
+              </div>
+              <ul class="notif__list" id="notifList"></ul>
+            </div>
+          </div>
+
+          <button class="avatar avatar--dark" id="topAvatar" aria-label="Account">I</button>
+        </div>
+      </header>
+
+      <main class="content" id="portal">
+        <!-- HERO -->
+        <section class="hero" aria-labelledby="heroTitle">
+          <div class="hero__copy">
+            <span class="chip chip--glass"><span class="chip__icon"><svg class="icon icon--sm icon--fill"><use href="#i-zap"/></svg></span>Developer Portal</span>
+            <h1 id="heroTitle">Integrate with Purpose Gateway</h1>
+            <p>Secure, reliable and developer-friendly payment gateway for your business.</p>
+            <div class="hero__cta">
+              <a href="#docs" class="btn btn--white btn--lg btn--pill"><svg class="icon"><use href="#i-book"/></svg>Read API Docs<svg class="icon icon--sm"><use href="#i-arrow-right"/></svg></a>
+              <button class="btn btn--outline-light btn--lg btn--pill" id="tutorialBtn"><span class="play"><svg viewBox="0 0 24 24"><polygon points="9 7 17 12 9 17"/></svg></span>Watch Tutorial</button>
+            </div>
+          </div>
+
+          <div class="hero__art" aria-hidden="true">
+            <div class="orbit orbit--1"></div>
+            <div class="orbit orbit--2"></div>
+            <span class="spark" style="top:12%;left:22%"></span>
+            <span class="spark" style="top:70%;left:8%"></span>
+            <span class="spark" style="top:20%;right:6%"></span>
+            <span class="spark" style="bottom:12%;right:30%"></span>
+            <svg class="laptop" viewBox="0 0 260 190">
+              <defs>
+                <linearGradient id="lpScreen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#312e81"/></linearGradient>
+                <linearGradient id="lpBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0e7ff"/><stop offset="1" stop-color="#a5b4fc"/></linearGradient>
+                <linearGradient id="lpCode" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#3b82f6"/></linearGradient>
+              </defs>
+              <g transform="skewY(-8) translate(0 30)">
+                <rect x="40" y="10" width="180" height="116" rx="10" fill="#c7d2fe"/>
+                <rect x="48" y="18" width="164" height="100" rx="5" fill="url(#lpScreen)"/>
+                <g fill="none" stroke="url(#lpCode)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="108 50 90 68 108 86"/>
+                  <polyline points="152 50 170 68 152 86"/>
+                  <line x1="138" y1="44" x2="122" y2="92"/>
+                </g>
+                <path d="M20 132h220l-18 26H38z" fill="url(#lpBody)"/>
+                <g fill="#818cf8" opacity=".55">
+                  <rect x="58" y="136" width="144" height="4" rx="2"/><rect x="62" y="143" width="136" height="4" rx="2"/><rect x="100" y="150" width="60" height="5" rx="2"/>
+                </g>
+              </g>
+            </svg>
+            <div class="pay-card pay-card--visa1"><span class="visa">VISA</span></div>
+            <div class="pay-card pay-card--visa2"><span class="visa">VISA</span></div>
+            <div class="pay-card pay-card--bkash"><svg viewBox="0 0 24 24" class="pay-card__glyph"><path fill="#e2136e" d="M4 4l9 3-3 5 8-2-3 10-2-6-6 3 2-6z"/></svg><span>bKash</span></div>
+            <div class="pay-card pay-card--nagad"><svg viewBox="0 0 24 24" class="pay-card__glyph"><circle cx="12" cy="12" r="9" fill="#f6921e"/><path d="M9 7v10M9 7l6 10V7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Nagad</span></div>
+            <div class="pay-card pay-card--rocket"><span class="rocket-word">Rocket</span></div>
+          </div>
+        </section>
+
+        <!-- ROW 1 -->
+        <section class="grid grid--top">
+          <!-- API KEYS -->
+          <article class="card" id="keys" aria-labelledby="keysTitle">
+            <header class="card__head">
+              <span class="card__icon card__icon--blue"><svg class="icon"><use href="#i-key"/></svg></span>
+              <div class="card__titles">
+                <div class="card__title-row">
+                  <h2 id="keysTitle">Your API Keys</h2>
+                  <a href="#keys" class="chip chip--soft">View All <svg class="icon icon--xs"><use href="#i-arrow-right"/></svg></a>
+                </div>
+                <p>Manage your API keys and credentials</p>
+              </div>
+            </header>
+            <div class="key-list" id="keyList">
+              <div class="skeleton skeleton--row"></div>
+              <div class="skeleton skeleton--row"></div>
+            </div>
+          </article>
+
+          <!-- QUICK LINKS -->
+          <article class="card" aria-labelledby="linksTitle">
+            <header class="card__head">
+              <span class="card__icon card__icon--blue"><svg class="icon"><use href="#i-grid"/></svg></span>
+              <div class="card__titles">
+                <h2 id="linksTitle">Quick Links</h2>
+                <p>Jump to important resources</p>
+              </div>
+            </header>
+            <div class="quick-links">
+              <a href="#docs" class="tile"><svg class="tile__icon" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M8 12h8M8 16h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg><span>API<br />Documentation</span></a>
+              <a href="#sdks" class="tile"><svg class="icon tile__icon tile__icon--stroke"><use href="#i-code"/></svg><span>SDK &amp;<br />Libraries</span></a>
+              <a href="#webhooks" class="tile"><svg class="icon tile__icon tile__icon--stroke"><use href="#i-webhook"/></svg><span>Webhooks<br />Guide</span></a>
+              <a href="#support" class="tile"><svg class="tile__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.6-3 2.6" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="12" cy="17" r="1.3" fill="#fff"/></svg><span>Support Center</span></a>
+            </div>
+          </article>
+
+          <!-- USAGE -->
+          <article class="card card--usage" id="analytics" aria-labelledby="usageTitle">
+            <header class="card__head">
+              <span class="card__icon card__icon--blue"><svg class="icon icon--fill"><use href="#i-chart"/></svg></span>
+              <div class="card__titles"><h2 id="usageTitle">API Usage Overview</h2></div>
+              <div class="select">
+                <select id="rangeSelect" aria-label="Date range">
+                  <option value="7d">Last 7 Days</option>
+                  <option value="30d" selected>Last 30 Days</option>
+                  <option value="90d">Last 90 Days</option>
+                </select>
+                <svg class="icon icon--sm"><use href="#i-chevron-down"/></svg>
+              </div>
+            </header>
+            <div class="stats" id="usageStats">
+              <div class="stat"><div class="stat__value"><svg class="icon icon--blue"><use href="#i-arrow-up"/></svg><span data-stat="total">—</span></div><div class="stat__label">Total Requests</div></div>
+              <div class="stat"><div class="stat__value"><svg class="icon icon--green"><use href="#i-arrow-up"/></svg><span data-stat="success">—</span></div><div class="stat__label">Success Rate</div></div>
+              <div class="stat"><div class="stat__value"><svg class="icon icon--purple"><use href="#i-clock"/></svg><span data-stat="latency">—</span></div><div class="stat__label">Avg Response</div></div>
+              <div class="stat"><div class="stat__value"><svg class="icon icon--red"><use href="#i-arrow-down"/></svg><span data-stat="error">—</span></div><div class="stat__label"><span class="dot dot--pink"></span>Error Rate</div></div>
+            </div>
+            <div class="chart" id="usageChart" role="img" aria-label="Daily API requests line chart"></div>
+          </article>
+        </section>
+
+        <!-- ROW 2 -->
+        <section class="grid grid--bottom">
+          <!-- GETTING STARTED -->
+          <article class="card card--started" id="guide" aria-labelledby="startedTitle">
+            <div class="started__left">
+              <header class="card__head">
+                <span class="card__icon card__icon--indigo"><svg class="icon icon--fill"><use href="#i-zap"/></svg></span>
+                <div class="card__titles">
+                  <h2 id="startedTitle">Getting Started</h2>
+                  <p class="p-dark">Follow these steps to start integrating</p>
+                </div>
+              </header>
+              <ol class="steps" id="stepList"></ol>
+            </div>
+
+            <div class="code-panel" id="sandbox">
+              <div class="code-panel__bar">
+                <div class="tabs" role="tablist" aria-label="Code language" id="codeTabs">
+                  <button role="tab" class="tab is-active" data-lang="curl" aria-selected="true">cURL</button>
+                  <button role="tab" class="tab" data-lang="node" aria-selected="false">Node.js</button>
+                  <button role="tab" class="tab" data-lang="python" aria-selected="false">Python</button>
+                  <button role="tab" class="tab" data-lang="php" aria-selected="false">PHP</button>
+                </div>
+                <button class="btn btn--code" id="copyCode"><svg class="icon icon--sm"><use href="#i-copy"/></svg><span>Copy</span></button>
+              </div>
+              <pre class="code" tabindex="0"><code id="codeBlock"></code></pre>
+              <button class="btn btn--purple btn--pill code-panel__run" id="runSandbox">
+                <span class="play play--light"><svg viewBox="0 0 24 24"><polygon points="9 7 17 12 9 17"/></svg></span>
+                Try in Sandbox <svg class="icon icon--sm"><use href="#i-arrow-right"/></svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- LIVE STATUS -->
+          <article class="card card--status" aria-labelledby="statusTitle">
+            <header class="card__head">
+              <span class="card__icon card__icon--blue"><svg class="icon"><use href="#i-activity"/></svg></span>
+              <div class="card__titles">
+                <div class="card__title-row">
+                  <h2 id="statusTitle">Live Status</h2>
+                  <span class="chip chip--green" id="statusBadge"><span class="dot dot--green"></span><span>Checking</span></span>
+                </div>
+                <p id="statusSubtitle">Checking services…</p>
+              </div>
+            </header>
+            <div class="status__body">
+              <ul class="status-list" id="statusList"></ul>
+              <div class="uptime">
+                <span class="uptime__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div>
+                  <div class="uptime__value"><span id="uptimeValue">—</span> Uptime</div>
+                  <div class="uptime__label">Last 30 Days</div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <footer class="footer">© <span id="year"></span> Purpose Gateway · <a href="#docs">Docs</a> · <a href="#support">Support</a> · <a href="#status">Status</a></footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- Tutorial modal -->
+  <div class="modal" id="tutorialModal" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle" hidden>
+    <div class="modal__box">
+      <header class="modal__head">
+        <h3 id="tutorialTitle">Quick-start tutorial</h3>
+        <button class="icon-btn icon-btn--ghost-dark" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+      </header>
+      <div class="modal__video">
+        <span class="play play--xl"><svg viewBox="0 0 24 24"><polygon points="9 7 17 12 9 17"/></svg></span>
+        <p>Video player placeholder — connect your video source (e.g. tutorials table) here.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="assets/js/mock-data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
