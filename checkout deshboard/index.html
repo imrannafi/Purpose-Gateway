@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a4fe8" />
+  <meta name="description" content="Purpose Gateway — Secure, fast and reliable checkout." />
+  <title>Checkout · Purpose Gateway</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Taka sign (৳) glyph only — Inter has no Bengali currency symbol -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@500;700&text=%E0%A7%B3&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- ============ Icon sprite ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="g-blue" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#3b82ff" />
+        <stop offset="1" stop-color="#1240d6" />
+      </linearGradient>
+    </defs>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z" fill="currentColor"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield-o" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24" fill="currentColor"><path d="M2 3h3l2.6 11.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L22 7H6.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.8"/><circle cx="18" cy="20" r="1.8"/><path d="M8 9h12.5l-1.6 5H9.2Z" opacity=".55"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></symbol>
+    <symbol id="i-discount" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 3a9 9 0 1 1-6.4 2.6"/><path d="M12 12 8 8"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="7.5" r="3.6"/><circle cx="5" cy="9" r="2.6" opacity=".8"/><circle cx="19" cy="9" r="2.6" opacity=".8"/><path d="M5.5 20c0-3.9 2.9-7 6.5-7s6.5 3.1 6.5 7Z"/><path d="M0.5 19c0-2.8 2-5 4.5-5 .8 0 1.5.2 2.1.5A8.6 8.6 0 0 0 4.6 19Zm23 0c0-2.8-2-5-4.5-5-.8 0-1.5.2-2.1.5a8.6 8.6 0 0 1 2.5 4.5Z" opacity=".8"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4 14h7l-1.5 8L19 10h-7l1.5-8Z"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2.5" y="13" width="4" height="6" rx="1.5"/><rect x="17.5" y="13" width="4" height="6" rx="1.5"/><path d="M19.5 19c0 1.5-1.5 2.5-4 2.5H13"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M21 9h-5a3 3 0 0 0 0 6h5Z"/><circle cx="16" cy="12" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M7.5 13.5h1M11.5 13.5h1M15.5 13.5h1M7.5 17h1M11.5 17h1"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/><circle cx="12" cy="15.5" r="1" fill="currentColor"/></symbol>
+    <symbol id="i-lock-solid" viewBox="0 0 24 24"><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="4.5" y="10" width="15" height="11.5" rx="2.4" fill="currentColor"/><circle cx="12" cy="15.2" r="1.6" fill="#1a4fe8"/><path d="M12 15.5v2.5" stroke="#1a4fe8" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-check-badge" viewBox="0 0 24 24"><path d="M12 1.5 14.6 3.4l3.2-.1 1 3 2.6 1.9-1 3.1 1 3.1-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3-2.6-1.9 1-3.1-1-3.1 2.6-1.9 1-3 3.2.1Z" fill="currentColor"/><path d="m8 12.3 2.7 2.7L16.2 9.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  </svg>
+
+  <!-- ============ Decorative background ============ -->
+  <div class="bg" aria-hidden="true">
+    <svg class="bg__waves" viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="w1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#1d4ff5"/><stop offset="1" stop-color="#0b2bb5"/>
+        </linearGradient>
+        <linearGradient id="w2" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#6aa0ff" stop-opacity=".85"/><stop offset="1" stop-color="#1e4ef0" stop-opacity=".9"/>
+        </linearGradient>
+        <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+      </defs>
+      <path d="M-50 0h360C250 160 120 300 60 520-10 760 40 900 -50 1000Z" fill="url(#w1)" />
+      <path d="M-50 120C120 220 90 420 30 600-30 780 40 900 120 1000H-50Z" fill="url(#w2)" opacity=".7" filter="url(#blur)"/>
+      <path d="M1490 0H980c160 80 330 60 420 190 90 130 40 300 90 420Z" fill="url(#w2)" opacity=".75"/>
+      <path d="M1490 520c-140 120-170 280-330 380-90 56-180 80-260 100h590Z" fill="url(#w1)" />
+      <path d="M1490 640c-120 90-210 230-380 300-60 25-120 45-170 60h550Z" fill="url(#w2)" opacity=".7" filter="url(#blur)"/>
+      <path d="M700 -20c140 40 300 30 460-20H700Z" fill="url(#w1)" opacity=".6" filter="url(#blur)"/>
+    </svg>
+  </div>
+
+  <div class="page">
+    <div class="shell">
+      <!-- ============ Header ============ -->
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Purpose Gateway home">
+          <svg class="brand__logo" viewBox="0 0 48 56" aria-hidden="true">
+            <defs>
+              <linearGradient id="logo-g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#3c8bff"/><stop offset="1" stop-color="#0d3fd9"/>
+              </linearGradient>
+            </defs>
+            <path d="M6 4h20a16 16 0 0 1 0 32H18v14a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" fill="url(#logo-g)"/>
+            <path d="M18 16h8a4 4 0 0 1 0 8h-8Z" fill="#fff"/>
+            <path d="M2 36c6-6 14-7 22-5" stroke="#8fc0ff" stroke-width="3" fill="none" opacity=".7"/>
+          </svg>
+          <span class="brand__name">Purpose <span>Gateway</span></span>
+        </a>
+        <span class="topbar__divider" aria-hidden="true"></span>
+        <p class="topbar__tagline">Secure <i>•</i> Fast <i>•</i> Reliable</p>
+
+        <div class="topbar__right">
+          <div class="secure-pill">
+            <svg class="secure-pill__icon"><use href="#i-shield"/></svg>
+            <div>
+              <strong>Your payment is secure</strong>
+              <span>Powered by Purpose Gateway</span>
+            </div>
+          </div>
+          <span class="topbar__divider topbar__divider--right" aria-hidden="true"></span>
+          <div class="account">
+            <button class="account__btn" type="button" aria-haspopup="menu" aria-expanded="false" id="accountBtn">
+              <span class="account__avatar"><svg><use href="#i-user"/></svg></span>
+              <svg class="account__chev"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="account__menu" role="menu" id="accountMenu" hidden>
+              <div class="account__info">
+                <strong data-bind="user.full_name">Guest</strong>
+                <span data-bind="user.email">guest@example.com</span>
+              </div>
+              <a href="#" role="menuitem">My Orders</a>
+              <a href="#" role="menuitem">Saved Cards</a>
+              <a href="#" role="menuitem">Help Center</a>
+              <a href="#" role="menuitem" class="danger">Sign out</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <!-- ============ LEFT: Order summary ============ -->
+        <aside class="card summary" aria-labelledby="summaryTitle">
+          <div class="summary__hero">
+            <svg class="summary__hero-wave" viewBox="0 0 500 90" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 60C90 20 180 95 290 70 380 48 440 20 500 30V90H0Z" fill="rgba(255,255,255,.22)"/>
+              <path d="M0 75C110 40 200 100 310 82 400 66 450 50 500 55V90H0Z" fill="#f5f8ff"/>
+            </svg>
+            <div class="summary__hero-content">
+              <svg class="summary__cart" aria-hidden="true"><use href="#i-cart"/></svg>
+              <div>
+                <h1 id="summaryTitle">Order Summary</h1>
+                <p>Complete your payment securely</p>
+              </div>
+            </div>
+            <svg class="summary__bag" viewBox="0 0 170 150" aria-hidden="true">
+              <defs>
+                <linearGradient id="bag-g" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#5aa2ff"/><stop offset=".6" stop-color="#2163f5"/><stop offset="1" stop-color="#1340c9"/>
+                </linearGradient>
+                <linearGradient id="bag-side" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#1846d4"/><stop offset="1" stop-color="#0e2f9e"/>
+                </linearGradient>
+                <linearGradient id="ring-g" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#8b7bff"/><stop offset=".5" stop-color="#4f8bff"/><stop offset="1" stop-color="#9fd0ff"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="85" cy="112" rx="78" ry="20" fill="none" stroke="url(#ring-g)" stroke-width="7" opacity=".55" transform="rotate(-14 85 112)"/>
+              <path d="M58 40c0-20 12-32 27-32s27 12 27 32" fill="none" stroke="#8cc2ff" stroke-width="7" stroke-linecap="round"/>
+              <path d="M44 36h86l10 92a8 8 0 0 1-8 9H42a8 8 0 0 1-8-9Z" fill="url(#bag-g)"/>
+              <path d="M130 36l14 8 6 80-10 4Z" fill="url(#bag-side)"/>
+              <path d="M44 36h86l-4 10H48Z" fill="#fff" opacity=".18"/>
+              <circle cx="60" cy="50" r="4" fill="#0c2c9a"/><circle cx="112" cy="50" r="4" fill="#0c2c9a"/>
+              <path d="M70 70h20a14 14 0 0 1 0 28H82v12a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3Z" fill="#fff"/>
+              <path d="M82 80h7a4 4 0 0 1 0 8h-7Z" fill="#2563f5"/>
+              <path d="M10 118c40 26 120 20 150-14" fill="none" stroke="url(#ring-g)" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div class="summary__body">
+            <!-- Product line (rendered from data) -->
+            <ul class="items" id="orderItems" aria-label="Items in your order"></ul>
+
+            <dl class="breakdown">
+              <div class="breakdown__row">
+                <dt><svg><use href="#i-gift"/></svg>Subtotal</dt>
+                <dd id="subtotal">৳ 0</dd>
+              </div>
+              <div class="breakdown__row">
+                <dt><svg><use href="#i-discount"/></svg>Discount</dt>
+                <dd id="discount">- ৳ 0</dd>
+              </div>
+              <div class="breakdown__row">
+                <dt><svg><use href="#i-truck"/></svg>Delivery Charge</dt>
+                <dd id="delivery">৳ 0</dd>
+              </div>
+            </dl>
+
+            <details class="coupon">
+              <summary>Have a coupon code?</summary>
+              <form class="coupon__form" id="couponForm" novalidate>
+                <input type="text" id="couponInput" placeholder="Enter code (try PURPOSE10)" autocomplete="off" aria-label="Coupon code" />
+                <button type="submit">Apply</button>
+              </form>
+              <p class="coupon__msg" id="couponMsg" role="status"></p>
+            </details>
+
+            <div class="total">
+              <span class="total__label"><span class="total__icon"><svg><use href="#i-tag"/></svg></span>Total Amount</span>
+              <strong class="total__value" id="total">৳ 0</strong>
+            </div>
+
+            <button class="promo" type="button" data-select-method="group">
+              <span class="promo__icon"><svg><use href="#i-users"/></svg></span>
+              <span class="promo__text">
+                <strong>Group Payment <em class="badge badge--new">New</em></strong>
+                <span>Pay together with your friends or group</span>
+              </span>
+              <svg class="promo__chev"><use href="#i-chevron-right"/></svg>
+            </button>
+
+            <ul class="features">
+              <li>
+                <svg class="features__icon features__icon--outline"><use href="#i-shield-o"/></svg>
+                <div><strong>100% Secure Payment</strong><span>Your data is protected with industry-standard encryption.</span></div>
+              </li>
+              <li>
+                <svg class="features__icon"><use href="#i-bolt"/></svg>
+                <div><strong>Instant Confirmation</strong><span>Get your order confirmation in seconds.</span></div>
+              </li>
+              <li>
+                <svg class="features__icon features__icon--outline"><use href="#i-headset"/></svg>
+                <div><strong>24/7 Support</strong><span>We're here to help anytime.</span></div>
+              </li>
+            </ul>
+          </div>
+          <svg class="summary__foot-wave" viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 90C90 85 170 60 230 30 260 15 285 5 300 0V90Z" fill="#2c66ff" opacity=".25"/>
+            <path d="M40 90c90-6 160-30 210-62 20-12 38-20 50-24v86Z" fill="#1d4ff5" opacity=".85"/>
+          </svg>
+        </aside>
+
+        <!-- ============ RIGHT: Payment ============ -->
+        <section class="card pay" aria-labelledby="payTitle">
+          <!-- Stepper -->
+          <ol class="stepper" id="stepper" aria-label="Checkout progress">
+            <li class="stepper__step is-active" data-step="1"><span class="stepper__dot">1</span><span class="stepper__label">Payment Method</span></li>
+            <li class="stepper__line" aria-hidden="true"><span></span></li>
+            <li class="stepper__step" data-step="2"><span class="stepper__dot">2</span><span class="stepper__label">Payment Details</span></li>
+            <li class="stepper__line" aria-hidden="true"><span></span></li>
+            <li class="stepper__step" data-step="3"><span class="stepper__dot">3</span><span class="stepper__label">Complete</span></li>
+          </ol>
+
+          <div id="checkoutView">
+            <div class="pay__head">
+              <span class="pay__head-icon"><svg><use href="#i-card"/></svg></span>
+              <div>
+                <h2 id="payTitle">Choose Your Payment Method</h2>
+                <p>Select a secure and convenient payment option</p>
+              </div>
+              <span class="ssl"><svg><use href="#i-shield"/></svg>SSL Encrypted</span>
+            </div>
+
+            <!-- Methods -->
+            <div class="methods" role="radiogroup" aria-label="Payment method" id="methods">
+              <button class="method is-selected" type="button" role="radio" aria-checked="true" data-method="card">
+                <span class="method__icon method__icon--card"><svg><use href="#i-card"/></svg></span>
+                <span class="method__text"><strong>Card Payment</strong><small>Visa, Mastercard &amp; more</small></span>
+                <span class="method__check"><svg><use href="#i-check"/></svg></span>
+              </button>
+              <button class="method" type="button" role="radio" aria-checked="false" data-method="mobile">
+                <span class="method__icon method__icon--mobile"><svg><use href="#i-phone"/></svg></span>
+                <span class="method__text"><strong>Mobile Banking</strong><small>bKash, Nagad, Rocket &amp; more</small></span>
+                <span class="method__check"><svg><use href="#i-check"/></svg></span>
+              </button>
+              <button class="method" type="button" role="radio" aria-checked="false" data-method="wallet">
+                <span class="method__icon method__icon--wallet"><svg><use href="#i-wallet"/></svg></span>
+                <span class="method__text"><strong>Wallet</strong><small>Google Pay, Apple Pay</small></span>
+                <span class="method__check"><svg><use href="#i-check"/></svg></span>
+              </button>
+              <button class="method" type="button" role="radio" aria-checked="false" data-method="group">
+                <em class="badge badge--popular">Popular</em>
+                <span class="method__icon method__icon--group"><svg><use href="#i-users"/></svg></span>
+                <span class="method__text"><strong>Group Payment</strong><small>Pay together</small></span>
+                <span class="method__check"><svg><use href="#i-check"/></svg></span>
+              </button>
+            </div>
+
+            <form id="payForm" class="pay__form" novalidate>
+              <!-- ===== Card panel ===== -->
+              <fieldset class="panel is-active" data-panel="card">
+                <legend class="sr-only">Card details</legend>
+                <div class="panel__head">
+                  <span class="panel__icon"><svg><use href="#i-card"/></svg></span>
+                  <div>
+                    <h3>Card Details</h3>
+                    <p>Enter your card information securely</p>
+                  </div>
+                  <div class="brands" aria-label="Accepted cards">
+                    <span class="brand-logo brand-logo--visa" data-brand="visa">VISA</span>
+                    <span class="brand-logo brand-logo--mc" data-brand="mastercard" aria-label="Mastercard"><i></i><i></i></span>
+                    <span class="brand-logo brand-logo--amex" data-brand="amex">AMERICAN<br/>EXPRESS</span>
+                  </div>
+                </div>
+
+                <div class="grid grid--card">
+                  <div class="field field--number">
+                    <label for="cardNumber">Card Number</label>
+                    <div class="input">
+                      <svg class="input__icon"><use href="#i-card"/></svg>
+                      <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required />
+                      <span class="input__brand" id="cardBrand" aria-live="polite"></span>
+                    </div>
+                    <small class="field__error" data-error-for="cardNumber"></small>
+                  </div>
+                  <div class="field field--expiry">
+                    <label for="cardExpiry">Expiry Date</label>
+                    <div class="input input--icon-right">
+                      <input id="cardExpiry" name="cardExpiry" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required />
+                      <svg class="input__icon"><use href="#i-calendar"/></svg>
+                    </div>
+                    <small class="field__error" data-error-for="cardExpiry"></small>
+                  </div>
+                  <div class="field field--cvv">
+                    <label for="cardCvv">CVV</label>
+                    <div class="input input--icon-right">
+                      <input id="cardCvv" name="cardCvv" type="password" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" required />
+                      <svg class="input__icon"><use href="#i-lock"/></svg>
+                    </div>
+                    <small class="field__error" data-error-for="cardCvv"></small>
+                  </div>
+                  <div class="field field--full">
+                    <label for="cardName">Cardholder Name</label>
+                    <div class="input">
+                      <svg class="input__icon"><use href="#i-user"/></svg>
+                      <input id="cardName" name="cardName" autocomplete="cc-name" placeholder="Enter your name as on card" required />
+                    </div>
+                    <small class="field__error" data-error-for="cardName"></small>
+                  </div>
+                </div>
+                <label class="check">
+                  <input type="checkbox" name="saveCard" id="saveCard" />
+                  <span class="check__box"><svg><use href="#i-check"/></svg></span>
+                  Save this card for faster checkout
+                </label>
+              </fieldset>
+
+              <!-- ===== Mobile banking panel ===== -->
+              <fieldset class="panel" data-panel="mobile" disabled>
+                <legend class="sr-only">Mobile banking</legend>
+                <div class="panel__head">
+                  <span class="panel__icon"><svg><use href="#i-phone"/></svg></span>
+                  <div>
+                    <h3>Mobile Banking</h3>
+                    <p>Choose your provider and enter your account number</p>
+                  </div>
+                  <span class="mfs-count" id="mfsCount"></span>
+                </div>
+
+                <div class="mfs-search" id="mfsSearchWrap">
+                  <svg class="mfs-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                  <input type="search" id="mfsSearch" placeholder="Search provider or bank" aria-label="Search mobile banking providers" autocomplete="off" />
+                </div>
+
+                <!-- Rendered from payment_providers (method = mobile_banking) -->
+                <div class="mfs-grid" id="mfsGrid" role="radiogroup" aria-label="Mobile banking provider"></div>
+                <p class="mfs-empty" id="mfsEmpty" hidden>No provider matches your search.</p>
+
+                <div class="grid">
+                  <div class="field field--full">
+                    <label for="mfsNumber" id="mfsNumberLabel">Account Number</label>
+                    <div class="input">
+                      <span class="input__prefix">+880</span>
+                      <input id="mfsNumber" name="mfsNumber" inputmode="tel" autocomplete="tel-national" placeholder="1XXX-XXXXXX" maxlength="12" required />
+                    </div>
+                    <small class="field__error" data-error-for="mfsNumber"></small>
+                  </div>
+                </div>
+                <p class="hint"><svg><use href="#i-alert"/></svg>You'll receive a verification code &amp; PIN prompt on your phone to approve the payment.</p>
+              </fieldset>
+
+              <!-- ===== Wallet panel ===== -->
+              <fieldset class="panel" data-panel="wallet" disabled>
+                <legend class="sr-only">Digital wallet</legend>
+                <div class="panel__head">
+                  <span class="panel__icon"><svg><use href="#i-wallet"/></svg></span>
+                  <div>
+                    <h3>Digital Wallet</h3>
+                    <p>Pay in one tap with your saved wallet</p>
+                  </div>
+                </div>
+                <div class="wallets" role="radiogroup" aria-label="Wallet">
+                  <label class="wallet-opt">
+                    <input type="radio" name="walletType" value="google_pay" checked />
+                    <span class="wallet-opt__btn wallet-opt__btn--gpay"><b style="color:#4285f4">G</b> Pay</span>
+                  </label>
+                  <label class="wallet-opt">
+                    <input type="radio" name="walletType" value="apple_pay" />
+                    <span class="wallet-opt__btn wallet-opt__btn--apple">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.5c-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.3.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.3ZM13.9 5.2c.7-.9 1.2-2 1-3.2-1 0-2.2.7-3 1.5-.6.7-1.2 1.9-1 3.1 1.1.1 2.3-.6 3-1.4Z"/></svg>
+                      Pay
+                    </span>
+                  </label>
+                </div>
+                <p class="hint"><svg><use href="#i-alert"/></svg>A secure wallet sheet will open to confirm your payment of <b data-total-inline>৳ 0</b>.</p>
+              </fieldset>
+
+              <!-- ===== Group panel ===== -->
+              <fieldset class="panel" data-panel="group" disabled>
+                <legend class="sr-only">Group payment</legend>
+                <div class="panel__head">
+                  <span class="panel__icon"><svg><use href="#i-users"/></svg></span>
+                  <div>
+                    <h3>Group Payment</h3>
+                    <p>Split the total with friends — everyone pays their share</p>
+                  </div>
+                </div>
+                <div class="split-toggle" role="radiogroup" aria-label="Split type">
+                  <label><input type="radio" name="splitType" value="equal" checked /><span>Split equally</span></label>
+                  <label><input type="radio" name="splitType" value="custom" /><span>Custom amounts</span></label>
+                </div>
+                <ul class="members" id="members"></ul>
+                <button type="button" class="add-member" id="addMember"><svg><use href="#i-plus"/></svg>Add a friend</button>
+                <div class="split-summary" id="splitSummary"></div>
+              </fieldset>
+
+              <button type="submit" class="pay-btn" id="payBtn">
+                <svg class="pay-btn__lock"><use href="#i-lock-solid"/></svg>
+                <span class="pay-btn__label" id="payBtnLabel">Pay ৳ 0</span>
+                <svg class="pay-btn__arrow"><use href="#i-arrow-right"/></svg>
+                <span class="pay-btn__spinner" aria-hidden="true"></span>
+              </button>
+              <p class="form-error" id="formError" role="alert"></p>
+            </form>
+
+            <div class="or"><span>or</span></div>
+
+            <ul class="trust">
+              <li><svg class="trust__ok"><use href="#i-check-badge"/></svg>Encrypted &amp; Secure</li>
+              <li><svg class="trust__ok trust__ok--green"><use href="#i-check-badge"/></svg>PCI DSS Compliant</li>
+              <li><svg class="trust__bolt"><use href="#i-bolt"/></svg>Instant Processing</li>
+            </ul>
+          </div>
+
+          <!-- ===== Success view ===== -->
+          <div class="success" id="successView" hidden>
+            <div class="success__burst"><svg><use href="#i-check"/></svg></div>
+            <h2>Payment Successful!</h2>
+            <p id="successText">Your payment has been processed successfully.</p>
+            <dl class="receipt" id="receipt"></dl>
+            <div class="success__actions">
+              <button type="button" class="btn-ghost" id="copyRef"><svg><use href="#i-copy"/></svg>Copy reference</button>
+              <button type="button" class="btn-primary" id="restart">Back to checkout</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; <span id="year">2026</span> Purpose Gateway. All rights reserved.</p>
+      <nav aria-label="Legal">
+        <a href="#">Privacy Policy</a><span>|</span><a href="#">Terms of Service</a><span>|</span><a href="#">Contact Us</a>
+      </nav>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/mock-data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
