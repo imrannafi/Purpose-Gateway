@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1433" />
+  <title>Merchant Dashboard · Purpose Gateway</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- ============ SVG ICON SPRITE ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-home" viewBox="0 0 24 24"><path fill="currentColor" d="M11.3 2.6a1 1 0 0 1 1.4 0l8.6 8A1 1 0 0 1 20.6 12H19v7.5a1.5 1.5 0 0 1-1.5 1.5H15v-5.5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1V21H6.5A1.5 1.5 0 0 1 5 19.5V12H3.4a1 1 0 0 1-.7-1.7z"/></symbol>
+      <symbol id="i-receipt" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M7.5 9h9M7.5 13h9M7.5 17h5"/></g></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></g></symbol>
+      <symbol id="i-bars" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 20h16"/><rect x="5.5" y="11" width="3" height="6" rx="1"/><rect x="10.5" y="6" width="3" height="11" rx="1"/><rect x="15.5" y="9" width="3" height="8" rx="1"/></g></symbol>
+      <symbol id="i-bars-solid" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3.5" y="12" width="4.2" height="9" rx="1.6"/><rect x="9.9" y="4" width="4.2" height="17" rx="1.6"/><rect x="16.3" y="8" width="4.2" height="13" rx="1.6"/></g></symbol>
+      <symbol id="i-payout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/><path d="M8.5 9.5h5.5a1.5 1.5 0 0 1 0 3H10a1.5 1.5 0 0 0 0 3h5.5"/></g></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></g></symbol>
+      <symbol id="i-gear-solid" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M13.9 2.3a1 1 0 0 0-1-.8h-1.8a1 1 0 0 0-1 .8l-.4 2.1a7.7 7.7 0 0 0-1.9 1.1l-2-.7a1 1 0 0 0-1.2.4l-.9 1.6a1 1 0 0 0 .2 1.2L5.5 9.5a7.8 7.8 0 0 0 0 2.2l-1.6 1.4a1 1 0 0 0-.2 1.3l.9 1.5a1 1 0 0 0 1.2.5l2-.7c.6.5 1.2.8 1.9 1.1l.4 2.1a1 1 0 0 0 1 .8h1.8a1 1 0 0 0 1-.8l.4-2.1a7.7 7.7 0 0 0 1.9-1.1l2 .7a1 1 0 0 0 1.2-.5l.9-1.5a1 1 0 0 0-.2-1.3l-1.6-1.4a7.8 7.8 0 0 0 0-2.2l1.6-1.4a1 1 0 0 0 .2-1.3l-.9-1.5a1 1 0 0 0-1.2-.5l-2 .7a7.7 7.7 0 0 0-1.9-1.1zM12 14a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8z" transform="translate(0 1.4)"/></symbol>
+      <symbol id="i-help" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17.2h.01"/></g></symbol>
+      <symbol id="i-crown" viewBox="0 0 24 24"><path fill="currentColor" d="M3 7.5l4.5 3.5L12 4.5l4.5 6.5L21 7.5l-1.8 10.2a1 1 0 0 1-1 .8H5.8a1 1 0 0 1-1-.8z"/></symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+      <symbol id="i-arrow-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m-6 6 6-6 6 6"/></symbol>
+      <symbol id="i-arrow-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m6-6-6 6-6-6"/></symbol>
+      <symbol id="i-chevron-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="i-chevron-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m15 6-6 6 6 6"/></symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m9 6 6 6-6 6"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="currentColor"><path d="M7 2.5a1 1 0 0 1 1 1V4h8v-.5a1 1 0 1 1 2 0V4h.5A2.5 2.5 0 0 1 21 6.5V9H3V6.5A2.5 2.5 0 0 1 5.5 4H6v-.5a1 1 0 0 1 1-1z"/><path fill-rule="evenodd" d="M3 10.5h18v8A2.5 2.5 0 0 1 18.5 21h-13A2.5 2.5 0 0 1 3 18.5zM7 13a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2zm4 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2zm5 0a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2zM7 16.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2zm4 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2z"/></g></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5a6.5 6.5 0 0 0-6.5 6.5v3.6l-1.6 2.9A1 1 0 0 0 4.8 17h14.4a1 1 0 0 0 .9-1.5l-1.6-2.9V9A6.5 6.5 0 0 0 12 2.5zM9.2 18.5a2.9 2.9 0 0 0 5.6 0z"/></symbol>
+      <symbol id="i-wallet" viewBox="0 0 24 24"><g fill="currentColor"><path d="M5.5 4A2.5 2.5 0 0 0 3 6.5v11A2.5 2.5 0 0 0 5.5 20h13a2.5 2.5 0 0 0 2.5-2.5V16h-4a4 4 0 0 1 0-8h4V6.5A2.5 2.5 0 0 0 18.5 4z"/><path d="M17 9.5a2.5 2.5 0 0 0 0 5h4.5v-5zm.2 1.6a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"/></g></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M4 8h14m0 0-3.5-3.5M18 8l-3.5 3.5M20 16H6m0 0 3.5-3.5M6 16l3.5 3.5"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 4.2 2.9 17a2 2 0 0 0 1.7 3h14.8a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/><path d="M12 10v3.5M12 16.8h.01"/></g></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+      <symbol id="i-eye-off" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-2.6 3.5M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18"/></g></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path fill="currentColor" d="M21.4 3.4a.9.9 0 0 0-1-.2L3.1 10.4a.9.9 0 0 0 0 1.7l6.6 2.2 2.2 6.6a.9.9 0 0 0 1.7 0l7.2-17.3a.9.9 0 0 0-.4-.2zM10.9 13.1l-4.2-1.4 10-4.2z"/></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13.6 1.8a.8.8 0 0 1 1.4.7L13.3 10H19a.8.8 0 0 1 .6 1.3L10.4 22.2a.8.8 0 0 1-1.4-.7l1.7-7.5H5a.8.8 0 0 1-.6-1.3z"/></symbol>
+      <symbol id="i-dots" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></g></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></g></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2.5"/><path d="M15.5 8.5V6A2.5 2.5 0 0 0 13 3.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5"/></g></symbol>
+      <symbol id="i-logout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></g></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-rocket-tool" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></g></symbol>
+    </defs>
+  </svg>
+
+  <div class="app" id="app">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar__head">
+        <a class="brand" href="#dashboard" data-nav="dashboard" aria-label="Purpose Gateway home">
+          <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="pgLogo" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#5b8cff"/><stop offset="1" stop-color="#1f4fe0"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#pgLogo)" d="M18 6h22c11 0 18 7 18 17s-7 17-18 17h-9l-3.6 17H14.6L23.2 17h-8.7z"/>
+            <path fill="#0b1433" d="M31.6 17h8c4.4 0 7.2 2.6 7.2 6.3S44 29.7 39.6 29.7h-10.6z"/>
+          </svg>
+          <span class="brand__name">Purpose<br />Gateway</span>
+        </a>
+        <button class="icon-btn sidebar__close" id="sidebarClose" aria-label="Close menu"><svg><use href="#i-x"/></svg></button>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__item is-active" href="#dashboard" data-nav="dashboard"><svg><use href="#i-home"/></svg><span>Dashboard</span></a>
+        <a class="nav__item" href="#transactions" data-nav="transactions"><svg><use href="#i-receipt"/></svg><span>Transactions</span></a>
+        <a class="nav__item" href="#payment-links" data-nav="payment-links"><svg><use href="#i-link"/></svg><span>Payment Links</span></a>
+        <a class="nav__item" href="#analytics" data-nav="analytics"><svg><use href="#i-bars"/></svg><span>Analytics</span></a>
+        <a class="nav__item" href="#payouts" data-nav="payouts"><svg><use href="#i-payout"/></svg><span>Payouts</span></a>
+        <a class="nav__item" href="#settings" data-nav="settings"><svg><use href="#i-gear"/></svg><span>Settings</span></a>
+        <a class="nav__item" href="#support" data-nav="support"><svg><use href="#i-help"/></svg><span>Support</span></a>
+      </nav>
+
+      <div class="upgrade" id="upgradeCard">
+        <svg class="upgrade__crown" aria-hidden="true"><use href="#i-crown"/></svg>
+        <h3 class="upgrade__title">Upgrade to<br />Pro Plan</h3>
+        <p class="upgrade__text">Unlock more features and higher limits.</p>
+        <button class="btn btn--primary btn--sm" data-action="upgrade">Upgrade Now <svg><use href="#i-arrow-right"/></svg></button>
+      </div>
+
+      <div class="profile">
+        <button class="profile__btn" id="profileBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="profileMenu">
+          <span class="avatar" id="profileAvatar" aria-hidden="true">IN</span>
+          <span class="profile__meta">
+            <span class="profile__name" id="profileName">Imran Un Nafi</span>
+            <span class="profile__role" id="profileRole">Merchant</span>
+          </span>
+          <svg class="profile__chev"><use href="#i-chevron-down"/></svg>
+        </button>
+        <div class="menu menu--up" id="profileMenu" role="menu" hidden>
+          <button class="menu__item" role="menuitem" data-nav="settings"><svg><use href="#i-user"/></svg>My profile</button>
+          <button class="menu__item" role="menuitem" data-nav="settings"><svg><use href="#i-gear"/></svg>Account settings</button>
+          <hr class="menu__sep" />
+          <button class="menu__item menu__item--danger" role="menuitem" data-action="logout"><svg><use href="#i-logout"/></svg>Log out</button>
+        </div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim" hidden></div>
+
+    <!-- ============ MAIN ============ -->
+    <main class="main" id="main">
+      <header class="topbar">
+        <button class="icon-btn topbar__menu" id="menuBtn" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+        <div class="topbar__title">
+          <h1 id="pageTitle">Welcome back, <span id="firstName">Imran</span>! <span class="wave" aria-hidden="true">👋</span></h1>
+          <p id="pageSubtitle">Here's what's happening with your payments today.</p>
+        </div>
+        <div class="topbar__actions">
+          <div class="dropdown" id="rangeDropdown">
+            <button class="pill-btn" id="rangeBtn" aria-haspopup="listbox" aria-expanded="false">
+              <svg class="pill-btn__icon"><use href="#i-calendar"/></svg>
+              <span id="rangeLabel">Last 30 Days</span>
+              <svg class="pill-btn__chev"><use href="#i-chevron-down"/></svg>
+            </button>
+            <ul class="menu" role="listbox" id="rangeMenu" hidden>
+              <li class="menu__item" role="option" data-range="today">Today</li>
+              <li class="menu__item" role="option" data-range="last_7_days">Last 7 Days</li>
+              <li class="menu__item is-selected" role="option" data-range="last_30_days" aria-selected="true">Last 30 Days</li>
+              <li class="menu__item" role="option" data-range="last_90_days">Last 90 Days</li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <button class="icon-btn icon-btn--round" id="bellBtn" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false">
+              <svg><use href="#i-bell"/></svg>
+              <span class="badge-dot" id="bellDot" hidden></span>
+            </button>
+            <div class="notif-panel" id="notifPanel" role="dialog" aria-label="Notifications" hidden>
+              <div class="notif-panel__head">
+                <strong>Notifications</strong>
+                <button class="link-btn" id="markAllRead">Mark all as read</button>
+              </div>
+              <ul class="notif-list" id="notifList"></ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== VIEW: DASHBOARD ===== -->
+      <section class="view is-active" data-view="dashboard" aria-label="Dashboard overview">
+        <div class="kpi-grid" id="kpiGrid" aria-live="polite">
+          <!-- filled by app.js -->
+          <div class="card kpi skeleton"></div><div class="card kpi skeleton"></div><div class="card kpi skeleton"></div><div class="card kpi skeleton"></div>
+        </div>
+
+        <div class="grid-main">
+          <article class="card revenue" aria-labelledby="revTitle">
+            <div class="card__head">
+              <h2 class="card__title" id="revTitle"><svg class="card__title-icon card__title-icon--blue"><use href="#i-bars-solid"/></svg>Revenue Overview</h2>
+              <div class="dropdown">
+                <button class="select-btn" id="periodBtn" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="periodLabel">This Month</span><svg><use href="#i-chevron-down"/></svg>
+                </button>
+                <ul class="menu menu--right" role="listbox" id="periodMenu" hidden>
+                  <li class="menu__item is-selected" role="option" data-period="this_month" aria-selected="true">This Month</li>
+                  <li class="menu__item" role="option" data-period="last_month">Last Month</li>
+                  <li class="menu__item" role="option" data-period="this_year">This Year</li>
+                </ul>
+              </div>
+            </div>
+            <div class="revenue__headline">
+              <span class="revenue__total" id="revTotal">৳ 0</span>
+              <span class="chip chip--up" id="revChange"><svg><use href="#i-arrow-up"/></svg><b>0%</b> <span id="revCompare">vs last month</span></span>
+            </div>
+            <div class="chart" id="revenueChart" role="img" aria-label="Revenue over time"></div>
+          </article>
+
+          <div class="stack">
+            <article class="card balance" aria-labelledby="balTitle">
+              <div class="balance__body">
+                <h2 class="balance__title" id="balTitle">Available Balance
+                  <button class="icon-btn icon-btn--ghost" id="toggleBalance" aria-label="Hide balance" aria-pressed="false"><svg><use href="#i-eye"/></svg></button>
+                </h2>
+                <p class="balance__amount" id="balAmount">৳ 0.00</p>
+                <p class="balance__pending" id="balPending"></p>
+                <button class="btn btn--primary" data-action="withdraw">Withdraw <svg><use href="#i-send"/></svg></button>
+              </div>
+              <svg class="balance__art" viewBox="0 0 220 190" aria-hidden="true">
+                <defs>
+                  <linearGradient id="wBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d9bff"/><stop offset=".55" stop-color="#2f62f0"/><stop offset="1" stop-color="#1b3fb8"/></linearGradient>
+                  <linearGradient id="wFlap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb3ff"/><stop offset="1" stop-color="#3a6cf5"/></linearGradient>
+                  <linearGradient id="wCard" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
+                  <radialGradient id="coin" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffe58a"/><stop offset=".6" stop-color="#f6b51e"/><stop offset="1" stop-color="#d48a06"/></radialGradient>
+                  <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3b82f6" stop-opacity=".55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+                </defs>
+                <ellipse cx="112" cy="110" rx="100" ry="70" fill="url(#glow)"/>
+                <ellipse cx="112" cy="120" rx="96" ry="30" fill="none" stroke="#60a5fa" stroke-opacity=".55" stroke-width="2" transform="rotate(-12 112 120)"/>
+                <g transform="rotate(-10 110 100)">
+                  <rect x="58" y="42" width="96" height="40" rx="8" fill="url(#wCard)" opacity=".9"/>
+                  <rect x="48" y="52" width="122" height="96" rx="20" fill="url(#wBody)"/>
+                  <rect x="48" y="52" width="122" height="96" rx="20" fill="none" stroke="#a5c4ff" stroke-opacity=".5"/>
+                  <path d="M118 84h52v40h-52a20 20 0 0 1 0-40z" fill="url(#wFlap)"/>
+                  <circle cx="124" cy="104" r="8" fill="#e8f0ff"/><circle cx="124" cy="104" r="4" fill="#2f62f0"/>
+                </g>
+                <g><circle cx="182" cy="38" r="20" fill="url(#coin)"/><circle cx="182" cy="38" r="14" fill="none" stroke="#fff3c4" stroke-opacity=".7" stroke-width="2"/><text x="182" y="45" text-anchor="middle" font-size="18" font-weight="800" fill="#fff8dc">৳</text></g>
+                <g><circle cx="46" cy="160" r="18" fill="url(#coin)"/><circle cx="46" cy="160" r="12" fill="none" stroke="#fff3c4" stroke-opacity=".7" stroke-width="2"/><text x="46" y="166" text-anchor="middle" font-size="15" font-weight="800" fill="#fff8dc">৳</text></g>
+              </svg>
+            </article>
+
+            <article class="card gateways" aria-labelledby="gwTitle">
+              <div class="card__head">
+                <h2 class="card__title card__title--sm" id="gwTitle">Connected Gateways</h2>
+                <a class="view-all" href="#settings" data-nav="settings">View All <svg><use href="#i-arrow-right"/></svg></a>
+              </div>
+              <ul class="gw-list" id="gwList"></ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="grid-bottom">
+          <article class="card tx" aria-labelledby="txTitle">
+            <div class="card__head">
+              <h2 class="card__title" id="txTitle"><svg class="card__title-icon card__title-icon--blue"><use href="#i-swap"/></svg>Recent Transactions</h2>
+              <a class="view-all" href="#transactions" data-nav="transactions">View All <svg><use href="#i-arrow-right"/></svg></a>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="recentTable">
+                <thead><tr><th>#</th><th>Customer</th><th>Amount</th><th>Payment Method</th><th>Status</th><th>Date &amp; Time</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card qa" aria-labelledby="qaTitle">
+            <h2 class="card__title" id="qaTitle"><svg class="card__title-icon card__title-icon--blue"><use href="#i-bolt"/></svg>Quick Actions</h2>
+            <div class="qa__grid">
+              <button class="qa__btn" data-action="create-link"><svg><use href="#i-link"/></svg>Create Payment Link</button>
+              <button class="qa__btn" data-nav="analytics"><svg><use href="#i-bars-solid"/></svg>View Analytics</button>
+              <button class="qa__btn" data-nav="payouts"><svg><use href="#i-wallet"/></svg>Manage Payouts</button>
+              <button class="qa__btn" data-nav="settings"><svg><use href="#i-gear-solid"/></svg>Settings</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== VIEW: TRANSACTIONS ===== -->
+      <section class="view" data-view="transactions" aria-label="All transactions">
+        <article class="card">
+          <div class="toolbar">
+            <label class="search">
+              <svg><use href="#i-search"/></svg>
+              <input type="search" id="txSearch" placeholder="Search ID, customer or method" aria-label="Search transactions" />
+            </label>
+            <div class="seg" role="tablist" aria-label="Filter by status" id="txFilter">
+              <button role="tab" class="seg__btn is-active" aria-selected="true" data-status="all">All</button>
+              <button role="tab" class="seg__btn" aria-selected="false" data-status="success">Success</button>
+              <button role="tab" class="seg__btn" aria-selected="false" data-status="pending">Pending</button>
+              <button role="tab" class="seg__btn" aria-selected="false" data-status="failed">Failed</button>
+              <button role="tab" class="seg__btn" aria-selected="false" data-status="refunded">Refunded</button>
+            </div>
+            <button class="btn btn--ghost btn--sm" data-action="export"><svg><use href="#i-download"/></svg>Export CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="allTable">
+              <thead><tr><th>#</th><th>Customer</th><th>Amount</th><th>Payment Method</th><th>Status</th><th>Date &amp; Time</th><th><span class="sr-only">Actions</span></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <span id="txCount" class="muted"></span>
+            <div class="pager__btns">
+              <button class="icon-btn icon-btn--bordered" id="txPrev" aria-label="Previous page"><svg><use href="#i-chevron-left"/></svg></button>
+              <span id="txPage" class="pager__page"></span>
+              <button class="icon-btn icon-btn--bordered" id="txNext" aria-label="Next page"><svg><use href="#i-chevron-right"/></svg></button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===== VIEW: PLACEHOLDER (other sections) ===== -->
+      <section class="view" data-view="placeholder" aria-live="polite">
+        <article class="card empty">
+          <div class="empty__icon"><svg id="phIcon"><use href="#i-rocket-tool"/></svg></div>
+          <h2 id="phTitle">Coming soon</h2>
+          <p id="phText" class="muted">This section is part of the next phase.</p>
+          <button class="btn btn--primary btn--sm" data-nav="dashboard">Back to Dashboard</button>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============ MODALS ============ -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="document">
+      <div class="modal__head">
+        <h2 id="modalTitle">Title</h2>
+        <button class="icon-btn" data-close aria-label="Close"><svg><use href="#i-x"/></svg></button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- row action menu (single floating instance) -->
+  <div class="menu menu--floating" id="rowMenu" role="menu" hidden>
+    <button class="menu__item" role="menuitem" data-row-action="view"><svg><use href="#i-eye"/></svg>View details</button>
+    <button class="menu__item" role="menuitem" data-row-action="copy"><svg><use href="#i-copy"/></svg>Copy transaction ID</button>
+    <button class="menu__item" role="menuitem" data-row-action="refund"><svg><use href="#i-payout"/></svg>Issue refund</button>
+  </div>
+
+  <div class="toast-stack" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="assets/js/mock-data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
