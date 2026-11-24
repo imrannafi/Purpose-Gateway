@@ -21,11 +21,19 @@
   const merchant = {
     id: MERCHANT_ID,
     business_name: "Nafi Lifestyle Store",
+    legal_name: "Nafi Lifestyle",
+    business_type: "sole_proprietorship",
+    industry: "Retail",
     slug: "nafi-lifestyle",
     email: "billing@nafilifestyle.example",
     country_code: "BD",
     default_currency: "BDT",
     timezone: "Asia/Dhaka",
+    phone: "+8801712345678",
+    website_url: "https://nafilifestyle.example",
+    address_line1: "House 12, Road 4",
+    city: "Dhaka",
+    postal_code: "1205",
     status: "active",
     kyc_status: "verified",
   };
@@ -47,17 +55,34 @@
     upgrade_plan_code: "pro",
   };
 
+  const merchant_settings = {
+    payout_schedule: "manual",
+    notify_email: { payment_failed: true, payout: true, weekly_report: true, payment_success: false, refund: true, security: true },
+    notify_sms: { payout: true, payment: false },
+  };
+  const merchant_team = [
+    { id: "usr_owner", full_name: "Imran Un Nafi", email: "imran@nafilifestyle.example", role: "owner", status: "active", invited_at: "2025-03-02T10:00:00+06:00" },
+    { id: "usr_finance", full_name: "Nusrat Jahan", email: "nusrat@nafilifestyle.example", role: "finance", status: "active", invited_at: "2025-04-15T09:30:00+06:00" },
+  ];
+  const security_settings = { two_factor_enabled: false };
+
+  const payment_preferences = {
+    mobile_banking: "bkash",
+    card: "card",
+    bank_transfer: "",
+  };
+
   // ---------------------------------------------------------------- gateways
   // payment_providers joined with merchant_gateways
   const payment_providers = [
-    { id: 1, code: "bkash",      name: "bKash",         method_code: "mobile_banking", brand_color: "#E2136E", logo_url: null, sort_order: 1 },
-    { id: 2, code: "nagad",      name: "Nagad",         method_code: "mobile_banking", brand_color: "#F26522", logo_url: null, sort_order: 2 },
-    { id: 3, code: "rocket",     name: "Rocket",        method_code: "mobile_banking", brand_color: "#8C3494", logo_url: null, sort_order: 3 },
-    { id: 4, code: "card",       name: "Card",          method_code: "card",           brand_color: "#2B5CF6", logo_url: null, sort_order: 4 },
-    { id: 5, code: "upay",       name: "Upay",          method_code: "mobile_banking", brand_color: "#FFC20E", logo_url: null, sort_order: 5 },
-    { id: 6, code: "bank",       name: "Bank Transfer", method_code: "bank_transfer",  brand_color: "#0F766E", logo_url: null, sort_order: 6 },
-    { id: 7, code: "visa",       name: "Visa",          method_code: "card",           brand_color: "#1A1F71", logo_url: null, sort_order: 7 },
-    { id: 8, code: "mastercard", name: "Mastercard",    method_code: "card",           brand_color: "#EB001B", logo_url: null, sort_order: 8 },
+    { id: 1, code: "bkash",      name: "bKash",         method_code: "mobile_banking", brand_color: "#E2136E", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 1.5, fixed_fee_minor: 0, sort_order: 1 },
+    { id: 2, code: "nagad",      name: "Nagad",         method_code: "mobile_banking", brand_color: "#F26522", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 1.5, fixed_fee_minor: 0, sort_order: 2 },
+    { id: 3, code: "rocket",     name: "Rocket",        method_code: "mobile_banking", brand_color: "#8C3494", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 1.5, fixed_fee_minor: 0, sort_order: 3 },
+    { id: 4, code: "card",       name: "Card",          method_code: "card",           brand_color: "#2B5CF6", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 2.9, fixed_fee_minor: 500, sort_order: 4 },
+    { id: 5, code: "upay",       name: "Upay",          method_code: "mobile_banking", brand_color: "#FFC20E", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 1.5, fixed_fee_minor: 0, sort_order: 5 },
+    { id: 6, code: "bank",       name: "Bank Transfer", method_code: "bank_transfer",  brand_color: "#0F766E", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 1, fixed_fee_minor: 0, sort_order: 6 },
+    { id: 7, code: "visa",       name: "Visa",          method_code: "card",           brand_color: "#1A1F71", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 2.9, fixed_fee_minor: 500, sort_order: 7 },
+    { id: 8, code: "mastercard", name: "Mastercard",    method_code: "card",           brand_color: "#EB001B", logo_url: null, availability: "available", availability_label: "Operational", fee_percent: 2.9, fixed_fee_minor: 500, sort_order: 8 },
   ];
 
   const merchant_gateways = [
@@ -87,7 +112,21 @@
   const payout_rules = { min_payout_minor: 50000, payout_fee_minor: 0 }; // ৳500 minimum
 
   const payouts = [];
-  const payment_links = [];
+  const payment_links = [
+    {
+      id: "pl_demo_01", slug: "eid-collection-9f31a", title: "Eid Collection",
+      description: "New season collection order.", amount_minor: 250000,
+      currency: "BDT", status: "active", uses_count: 18, created_at: "2025-11-24T10:30:00+06:00",
+      url: "https://pay.purposegateway.com/nafi-lifestyle/eid-collection-9f31a",
+    },
+    {
+      id: "pl_demo_02", slug: "custom-order-4c7b2", title: "Custom Order",
+      description: "Customer enters the amount for a custom order.", amount_minor: null,
+      currency: "BDT", status: "paused", uses_count: 6, created_at: "2025-11-18T14:15:00+06:00",
+      url: "https://pay.purposegateway.com/nafi-lifestyle/custom-order-4c7b2",
+    },
+  ];
+  const support_tickets = [];
 
   // ---------------------------------------------------------------- customers + transactions
   const NAMES = [
@@ -150,6 +189,18 @@
     tx.provider_reference = tx.status === "failed" ? null : "PRV" + (91000000 + i * 3137);
   });
 
+  const refunds = transactions.filter((tx) => tx.refunded_minor > 0).map((tx, i) => ({
+    id: "rf_seed_" + String(i + 1).padStart(3, "0"),
+    transaction_id: tx.id,
+    transaction_public_id: tx.public_id,
+    customer_name: customers.find((customer) => customer.id === tx.customer_id)?.full_name || "Guest",
+    amount_minor: tx.refunded_minor,
+    reason: i % 2 ? "duplicate" : "requested_by_customer",
+    status: "succeeded",
+    requested_at: new Date(new Date(tx.created_at).getTime() + 15 * 60000).toISOString(),
+    updated_at: new Date(new Date(tx.created_at).getTime() + 45 * 60000).toISOString(),
+  }));
+
   // ---------------------------------------------------------------- analytics (daily_merchant_stats rollups)
   function distribute(shape, totalMinor, startISO) {
     const sum = shape.reduce((a, b) => a + b, 0);
@@ -208,8 +259,8 @@
   window.PG_MOCK = {
     MOCK_NOW, merchant, merchant_user, subscription,
     payment_providers, merchant_gateways,
-    merchant_balance, payout_accounts, payout_rules, payouts, payment_links,
-    customers, transactions,
+    merchant_balance, payout_accounts, payout_rules, payouts, payment_links, support_tickets, merchant_settings, payment_preferences, merchant_team, security_settings,
+    customers, transactions, refunds,
     daily_merchant_stats, monthly_revenue_2025, dashboard_summaries,
     notifications,
   };

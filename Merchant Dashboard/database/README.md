@@ -184,15 +184,30 @@ A worker updates these when a transaction reaches a final status, and a nightly 
 | `GET /dashboard/revenue?period=this_month` | `{ period, granularity, total_minor, previous_total_minor, change_pct, points:[{date, value_minor}] }` |
 | `GET /balance` | `merchant_balances` row |
 | `GET /gateways` | `[{ id, code, name, method_code, status, environment, logo_url, connected_at }]` |
-| `GET /transactions?search=&status=&page=&page_size=` | `{ data:[TxDTO], page, page_size, total }` |
+| `GET /payment-providers` | Provider catalog joined with merchant connection state, availability, and fee fields (`availability`, `availability_label`, `fee_percent`, `fixed_fee_minor`) |
+| `POST /gateways` `{ provider_code }` | Starts the authenticated provider connection/onboarding flow and returns the gateway |
+| `PATCH /gateways/:provider_code` `{ status }` | Enables or disables a connected provider |
+| `GET /payment-preferences` | `{ mobile_banking, card, bank_transfer }` preferred provider codes (empty string means no preference) |
+| `PATCH /payment-preferences` `{ mobile_banking, card, bank_transfer }` | Saves valid preferred providers; each selection must be connected, enabled, and available for that category |
+| `GET /settings` · `PATCH /settings` | Merchant payout schedule and notification preferences (`notify_email`, `notify_sms`) |
+| `GET /settings/team` | Team members for the authenticated merchant |
+| `POST /settings/team/invitations` `{ email, role }` · `DELETE /settings/team/:id` | Invite or remove a merchant team member; enforce role permissions and prevent removing the owner |
+| `POST /security/password` `{ current_password, new_password }` | Verifies current credentials and changes the authenticated user's password; hash server-side and never log credentials |
+| `GET /security/two-factor` | `{ two_factor_enabled }` for the authenticated user |
+| `POST /security/two-factor/setup` · `POST /security/two-factor/confirm` `{ code }` · `DELETE /security/two-factor` `{ code }` | Secure authenticator enrollment, verification, and disable flow; return a per-user secret only over the authenticated setup flow |
+| `GET /transactions?search=&status=&date_from=&date_to=&min_amount_minor=&max_amount_minor=&method=&duplicates_only=&page=&page_size=` | `{ data:[TxDTO], page, page_size, total }`; date bounds are inclusive merchant-local dates, `method` is a provider code, and `duplicates_only` accepts `true` |
 | `GET /transactions/:public_id` | `TxDTO` |
+| Reconciliation Center | Uses paginated `GET /transactions` to load internal records; provider CSV parsing, reference matching and reconciliation report export are currently performed client-side and are not persisted |
 | `POST /transactions/:public_id/refunds` `{ amount_minor, reason }` | refund |
+| `GET /refunds` | `[{ id, transaction_id, transaction_public_id, customer_name, amount_minor, reason, status, requested_at, updated_at, failure_message? }]` newest first; refund statuses are `pending`, `processing`, `succeeded`, or `failed` |
 | `GET /payout-accounts` | `{ accounts, rules:{ min_payout_minor, payout_fee_minor } }` |
 | `POST /payouts` `{ payout_account_id, amount_minor }` + `Idempotency-Key` header | payout |
 | `POST /payment-links` `{ title, amount_minor \| null, description }` | payment_link (with `url`) |
 | `GET /notifications?limit=20` · `POST /notifications/read-all` | list · 204 |
 
-`TxDTO` is the `v_transaction_list` row: `public_id, customer_name, amount_minor, fee_minor, net_minor, refunded_minor, provider_code, provider_name, status, created_at, …`.
+`TxDTO` is the `v_transaction_list` row: `public_id, customer_name, amount_minor, fee_minor, net_minor, refunded_minor, provider_code, provider_name, status, created_at, …`. The merchant UI also uses optional `is_duplicate` and `duplicate_of` fields to identify likely repeated payments (same customer/payment instrument, amount and provider within a short interval); treat these as review indicators rather than proof of fraud.
+
+Refund requests must be recorded as individual rows (including reason and status); support multiple partial refunds while ensuring their cumulative amount never exceeds the transaction amount. The refund report exports the currently visible status/search filter.
 
 ---
 
