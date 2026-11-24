@@ -51,16 +51,19 @@
     const fmt = opts.format || ((v) => (v / 1000).toFixed(1).replace(/\.0$/, '') + 'k');
     const yMax = opts.yMax || 100000;
     const yTicks = opts.yTicks || [0, 25000, 50000, 75000, 100000];
+    const rightYMax = opts.rightYMax || yMax;
+    const rightYTicks = opts.rightYTicks || yTicks;
+    const hasRightAxis = series.some((s) => s.axis === 'right');
     const highlight = opts.highlightIndex;
 
     function render() {
       container.innerHTML = '';
       const W = Math.max(container.clientWidth, 260);
       const H = container.clientHeight || 200;
-      const m = { t: 10, r: 14, b: 26, l: 40 };
+      const m = { t: 10, r: hasRightAxis ? 42 : 14, b: 26, l: 40 };
       const iw = W - m.l - m.r, ih = H - m.t - m.b;
       const x = (i) => m.l + (i / (data.length - 1)) * iw;
-      const y = (v) => m.t + ih - (Math.min(v, yMax) / yMax) * ih;
+      const y = (v, max = yMax) => m.t + ih - (Math.min(v, max) / max) * ih;
 
       const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H });
       const defs = el('defs', {}, svg);
@@ -73,6 +76,13 @@
         const tx = el('text', { x: m.l - 10, y: y(t) + 4, 'text-anchor': 'end' }, axis);
         tx.textContent = t === 0 ? '0k' : fmt(t);
       });
+      if (hasRightAxis) {
+        el('line', { x1: W - m.r, x2: W - m.r, y1: m.t, y2: m.t + ih }, grid);
+        rightYTicks.forEach((t) => {
+          const tx = el('text', { x: W - m.r + 8, y: y(t, rightYMax) + 4, 'text-anchor': 'start' }, axis);
+          tx.textContent = t === 0 ? '0' : fmt(t);
+        });
+      }
       // vertical grid + x labels (about 5 labels max, always include ends)
       const n = data.length;
       const want = W < 420 ? 3 : 5;
@@ -87,7 +97,8 @@
 
       // series
       series.slice().reverse().forEach((s) => {
-        const pts = data.map((d, i) => [x(i), y(d[s.key])]);
+        const seriesMax = s.axis === 'right' ? rightYMax : yMax;
+        const pts = data.map((d, i) => [x(i), y(d[s.key], seriesMax)]);
         const line = smoothPath(pts);
         if (s.fill) {
           const id = 'ag' + ++uid;
@@ -110,7 +121,7 @@
       container.appendChild(tip);
 
       function show(i, detail) {
-        const d = data[i], px = x(i), py = y(d[series[0].key]);
+        const d = data[i], px = x(i), primaryMax = series[0].axis === 'right' ? rightYMax : yMax, py = y(d[series[0].key], primaryMax);
         hoverLine.setAttribute('x1', px); hoverLine.setAttribute('x2', px);
         hoverLine.setAttribute('opacity', detail ? 1 : 0);
         dot.setAttribute('cx', px); dot.setAttribute('cy', py); dot.setAttribute('opacity', 1);

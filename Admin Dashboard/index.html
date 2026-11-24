@@ -54,6 +54,7 @@
       <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
       <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l6 6v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" fill="currentColor"/><path d="M8.5 12h7M8.5 15.5h7M8.5 19h4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></symbol>
       <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
       <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 4.5 4h15L21 9M3 9v11h18V9M3 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3M9 20v-5h6v5"/></symbol>
       <symbol id="i-cog" viewBox="0 0 24 24" fill="currentColor"><path d="M13.7 2h-3.4l-.5 2.7a8 8 0 0 0-2 1.2L5.2 5 3.5 8l2.1 1.8a8 8 0 0 0 0 2.4L3.5 14l1.7 3 2.6-.9a8 8 0 0 0 2 1.2l.5 2.7h3.4l.5-2.7a8 8 0 0 0 2-1.2l2.6.9 1.7-3-2.1-1.8a8 8 0 0 0 0-2.4L20.5 8l-1.7-3-2.6.9a8 8 0 0 0-2-1.2zM12 8.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7z"/></symbol>
       <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
@@ -82,19 +83,25 @@
 
       <nav class="nav" id="nav">
         <a href="#dashboard" class="nav__item is-active" data-page="dashboard"><svg><use href="#i-home"/></svg><span>Dashboard</span></a>
-        <a href="#providers" class="nav__item" data-page="providers"><svg><use href="#i-server"/></svg><span>Payment Providers</span></a>
+        <a href="#providers" class="nav__item" data-page="providers"><svg><use href="#i-server"/></svg><span>Payment Provider Management</span></a>
         <a href="#routing" class="nav__item" data-page="routing"><svg><use href="#i-route"/></svg><span>Smart Routing</span></a>
-        <a href="#merchants" class="nav__item" data-page="merchants"><svg><use href="#i-users"/></svg><span>Merchants</span></a>
-        <a href="#risk" class="nav__item" data-page="risk"><svg><use href="#i-alert"/></svg><span>Risk Alerts</span><b class="nav__badge" id="navRiskBadge">3</b></a>
-        <a href="#audit" class="nav__item" data-page="audit"><svg><use href="#i-clipboard"/></svg><span>Audit Logs</span></a>
+        <a href="#finance" class="nav__item" data-page="finance"><svg><use href="#i-dollar"/></svg><span>Financial Management</span></a>
+        <a href="#reconciliation" class="nav__item" data-page="reconciliation"><svg><use href="#i-check"/></svg><span>Reconciliation Management</span></a>
+        <a href="#refunds" class="nav__item" data-page="refunds"><svg><use href="#i-clipboard"/></svg><span>Refund &amp; Dispute Management</span></a>
+        <a href="#merchants" class="nav__item" data-page="merchants"><svg><use href="#i-users"/></svg><span>Merchant Management</span></a>
+        <a href="#transactions" class="nav__item" data-page="transactions"><svg><use href="#i-card"/></svg><span>Global Transaction Monitoring</span></a>
+        <a href="#risk" class="nav__item" data-page="risk"><svg><use href="#i-alert"/></svg><span>Risk &amp; Fraud Monitoring</span><b class="nav__badge" id="navRiskBadge">3</b></a>
+        <a href="#audit" class="nav__item" data-page="audit"><svg><use href="#i-clipboard"/></svg><span>Audit Logs &amp; Security Center</span></a>
+        <a href="#alerts" class="nav__item" data-page="alerts"><svg><use href="#i-bell"/></svg><span>Notifications &amp; Alerts</span></a>
+        <a href="#admin-users" class="nav__item" data-page="admin-users"><svg><use href="#i-users"/></svg><span>Admin Users &amp; Roles</span></a>
         <a href="#settings" class="nav__item" data-page="settings"><svg><use href="#i-gear"/></svg><span>Settings</span></a>
         <a href="#monitor" class="nav__item" data-page="monitor"><svg><use href="#i-gear"/></svg><span>System Monitor</span></a>
       </nav>
 
       <div class="health-card" id="systemHealth">
         <svg class="health-card__icon"><use href="#i-shield"/></svg>
-        <strong>System Healthy</strong>
-        <p>All systems are running smoothly</p>
+        <strong data-health-title>System status</strong>
+        <p data-health-description>Operational status is available in System Monitor</p>
         <svg class="health-card__wave" viewBox="0 0 180 40" preserveAspectRatio="none" aria-hidden="true">
           <path d="M0 26 C12 26 16 22 24 24 S36 30 44 26 S54 10 60 8 S68 34 74 32 S84 18 92 20 S104 30 112 26 S124 18 132 22 S146 28 156 24 S172 20 180 22" fill="none" stroke="#22e39a" stroke-width="2.2" stroke-linecap="round"/>
         </svg>
@@ -128,7 +135,7 @@
               <svg><use href="#i-bell"/></svg><span class="dot-badge" id="notifCount">3</span>
             </button>
             <div class="menu menu--wide" id="notifMenu" hidden>
-              <div class="menu__head">Notifications <button class="link-btn" id="markRead">Mark all read</button></div>
+              <div class="menu__head">Notifications <span><a class="link-btn" href="#alerts" data-page="alerts">Manage</a> <button class="link-btn" id="markRead">Mark all read</button></span></div>
               <ul class="notif-list" id="notifList"></ul>
             </div>
           </div>
@@ -138,7 +145,7 @@
               <span class="avatar">A</span><span class="profile-btn__name">Admin</span><svg class="chev"><use href="#i-chevron"/></svg>
             </button>
             <div class="menu" id="profileMenu" hidden>
-              <a href="#settings" data-page="settings"><svg><use href="#i-user"/></svg>My Profile</a>
+              <a href="#profile" data-page="profile"><svg><use href="#i-user"/></svg>My Profile</a>
               <a href="#settings" data-page="settings"><svg><use href="#i-gear"/></svg>Settings</a>
               <hr/>
               <a href="#logout" class="danger"><svg><use href="#i-logout"/></svg>Log out</a>
@@ -167,7 +174,19 @@
         </div>
 
         <!-- KPI cards -->
-        <div class="kpis" id="kpis" aria-live="polite"></div>
+        <div class="kpis kpis--stats" id="kpis" aria-live="polite"></div>
+
+        <article class="card quick-actions-card" aria-labelledby="quickActionsTitle">
+          <header class="card__head">
+            <h2 id="quickActionsTitle"><svg class="h-ico h-ico--violet"><use href="#i-plus"/></svg>Quick Actions</h2>
+          </header>
+          <div class="quick-actions">
+            <a class="quick-action" href="#merchants" data-page="merchants"><span class="quick-action__icon quick-action__icon--blue"><svg><use href="#i-users"/></svg></span><span>Add New Merchant</span><svg class="quick-action__arrow"><use href="#i-arrow"/></svg></a>
+            <a class="quick-action" href="#providers" data-page="providers"><span class="quick-action__icon quick-action__icon--violet"><svg><use href="#i-server"/></svg></span><span>Add Payment Provider</span><svg class="quick-action__arrow"><use href="#i-arrow"/></svg></a>
+            <a class="quick-action" href="#transactions" data-page="transactions"><span class="quick-action__icon quick-action__icon--red"><svg><use href="#i-excl"/></svg></span><span>View Failed Transactions</span><svg class="quick-action__arrow"><use href="#i-arrow"/></svg></a>
+            <a class="quick-action" href="#approvals" data-page="approvals"><span class="quick-action__icon quick-action__icon--amber"><svg><use href="#i-clock"/></svg></span><span>View Pending Approvals</span><svg class="quick-action__arrow"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
 
         <!-- Row 2 -->
         <div class="row row--2">
@@ -194,10 +213,30 @@
             </header>
             <div class="legend">
               <span><i style="--c:var(--series-success)"></i>Successful</span>
-              <span><i style="--c:var(--series-failed)"></i>Failed</span>
-              <span><i style="--c:var(--series-pending)"></i>Pending</span>
+              <span><i style="--c:var(--series-failed)"></i>Failed (right scale)</span>
             </div>
-            <div class="chart" id="txChart" role="img" aria-label="Line chart of successful, failed and pending transactions"></div>
+            <div class="chart" id="txChart" role="img" aria-label="Line chart comparing successful and failed transactions"></div>
+          </article>
+        </div>
+
+        <!-- Platform visualizations -->
+        <div class="row row--visuals">
+          <article class="card">
+            <header class="card__head"><h2><svg class="h-ico h-ico--blue"><use href="#i-dollar"/></svg>Transaction Volume Over Time</h2></header>
+            <div class="legend"><span><i style="--c:var(--primary)"></i>Volume (BDT)</span></div>
+            <div class="chart chart--compact" id="volumeChart" role="img" aria-label="Transaction volume in BDT over the selected period"></div>
+          </article>
+          <article class="card">
+            <header class="card__head"><h2><svg class="h-ico h-ico--violet"><use href="#i-card"/></svg>Payment Method Distribution</h2></header>
+            <div class="distribution" id="paymentDistribution" role="img" aria-label="Transaction share by payment method"></div>
+          </article>
+          <article class="card">
+            <header class="card__head"><h2><svg class="h-ico h-ico--green"><use href="#i-pulse"/></svg>Provider Performance Comparison</h2></header>
+            <div class="provider-comparison" id="providerComparison"></div>
+          </article>
+          <article class="card">
+            <header class="card__head"><h2><svg class="h-ico h-ico--blue"><use href="#i-bars"/></svg>Daily Transaction Activity</h2></header>
+            <div class="daily-activity" id="dailyActivity" role="img" aria-label="Daily transaction counts for the last seven days"></div>
           </article>
         </div>
 
@@ -252,7 +291,7 @@
         <div class="row row--4">
           <article class="card" id="activityCard">
             <header class="card__head">
-              <h2><svg class="h-ico h-ico--violet"><use href="#i-clock"/></svg>Recent Activity</h2>
+              <h2><svg class="h-ico h-ico--violet"><use href="#i-clock"/></svg>Recent Platform Activity</h2>
               <a href="#activity" class="view-all">View All <svg><use href="#i-arrow"/></svg></a>
             </header>
             <ul class="activity" id="activity"></ul>
@@ -275,10 +314,24 @@
 
       <!-- ===== Placeholder for other modules ===== -->
       <section class="view" id="view-module" data-view="module" hidden>
+        <div id="merchantManagement" hidden></div>
+        <div id="providerManagement" hidden></div>
+        <div id="smartRoutingManagement" hidden></div>
+        <div id="financialManagement" hidden></div>
+        <div id="reconciliationManagement" hidden></div>
+        <div id="refundManagement" hidden></div>
+        <div id="transactionMonitoring" hidden></div>
+        <div id="riskManagement" hidden></div>
+        <div id="systemMonitor" hidden></div>
+        <div id="adminUserManagement" hidden></div>
+        <div id="auditManagement" hidden></div>
+        <div id="alertManagement" hidden></div>
+        <div id="adminProfileManagement" hidden></div>
+        <div id="adminSettingsManagement" hidden></div>
         <div class="card empty">
           <span class="empty__ico"><svg><use href="#i-gear"/></svg></span>
           <h1 id="moduleTitle">Module</h1>
-          <p>This module is part of the next build phase. Its data model is already defined in <code>database/</code>.</p>
+          <p id="moduleDescription">This module is part of the next build phase. Its data model is already defined in <code>database/</code>.</p>
           <a href="#dashboard" class="pill-btn" data-page="dashboard">Back to Dashboard <svg><use href="#i-arrow"/></svg></a>
         </div>
       </section>
