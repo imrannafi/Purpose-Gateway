@@ -37,7 +37,7 @@ CREATE TYPE payment_status       AS ENUM ('initiated', 'pending', 'requires_acti
 CREATE TYPE discount_type        AS ENUM ('percentage', 'fixed');
 CREATE TYPE split_type           AS ENUM ('equal', 'custom');
 CREATE TYPE group_status         AS ENUM ('collecting', 'completed', 'expired', 'cancelled');
-CREATE TYPE member_status        AS ENUM ('invited', 'viewed', 'paid', 'declined', 'expired');
+CREATE TYPE member_status        AS ENUM ('invited', 'viewed', 'accepted', 'paid', 'declined', 'expired');
 CREATE TYPE refund_status        AS ENUM ('pending', 'succeeded', 'failed');
 CREATE TYPE instrument_type      AS ENUM ('card', 'mobile_banking', 'wallet');
 CREATE TYPE address_type         AS ENUM ('shipping', 'billing');
@@ -392,6 +392,28 @@ CREATE INDEX idx_checkout_sessions_open   ON checkout_sessions(expires_at) WHERE
 --  7. SAVED PAYMENT INSTRUMENTS ("Save this card")
 -- =====================================================================
 
+-- Purpose Wallet stored balance (Wallet method). Debits/credits go through wallet_transactions.
+CREATE TABLE user_wallets (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id           UUID          NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+  wallet_number     VARCHAR(20)   NOT NULL UNIQUE,
+  balance_minor     BIGINT        NOT NULL DEFAULT 0 CHECK (balance_minor >= 0),
+  currency          CHAR(3)       NOT NULL DEFAULT 'BDT',
+  status            VARCHAR(16)   NOT NULL DEFAULT 'active',
+  created_at        TIMESTAMPTZ   NOT NULL DEFAULT now(),
+  updated_at        TIMESTAMPTZ   NOT NULL DEFAULT now()
+);
+
+CREATE TABLE wallet_transactions (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  wallet_id         UUID          NOT NULL REFERENCES user_wallets(id) ON DELETE RESTRICT,
+  amount_minor      BIGINT        NOT NULL,                -- negative = debit, positive = top-up/refund
+  balance_after_minor BIGINT      NOT NULL CHECK (balance_after_minor >= 0),
+  reference         VARCHAR(64),                           -- payments.gateway_reference for debits
+  created_at        TIMESTAMPTZ   NOT NULL DEFAULT now()
+);
+CREATE INDEX idx_wallet_tx_wallet ON wallet_transactions(wallet_id, created_at DESC);
+
 CREATE TABLE saved_payment_instruments (
   id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id           UUID          NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -444,6 +466,8 @@ CREATE TABLE group_payment_members (
   display_name      VARCHAR(120)  NOT NULL,
   email             CITEXT,
   phone             VARCHAR(20),
+  provider_id       SMALLINT      REFERENCES payment_providers(id),  -- MFS the request is sent through (bkash, nagad, ...)
+  provider_request_ref VARCHAR(64),                       -- provider request-to-pay / payment-link id
   is_organizer      BOOLEAN       NOT NULL DEFAULT false,
   share_minor       BIGINT        NOT NULL CHECK (share_minor > 0),
   invite_token      VARCHAR(64)   NOT NULL UNIQUE,         -- personal pay link
@@ -525,7 +549,7 @@ CREATE TABLE mobile_banking_payment_details (
 
 CREATE TABLE wallet_payment_details (
   payment_id        UUID PRIMARY KEY REFERENCES payments(id) ON DELETE CASCADE,
-  wallet_type       VARCHAR(20)   NOT NULL,                -- google_pay | apple_pay
+  wallet_type       VARCHAR(20)   NOT NULL,                -- purpose_wallet | google_pay | apple_pay
   underlying_card_brand VARCHAR(20),
   underlying_card_last4 CHAR(4),
   wallet_token_ref  VARCHAR(255)

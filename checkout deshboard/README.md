@@ -13,25 +13,37 @@ npx serve .        # or: python -m http.server 8080
 ## Structure
 
 ```
-index.html              Page markup and inline SVG icon sprite
-assets/css/styles.css   All styles, including responsive breakpoints
-assets/js/mock-data.js  Mock rows shaped like the DB tables (snake_case, money in minor units)
-assets/js/api.js        Service layer. The only place to change when the backend is ready
-assets/js/app.js        UI logic: method switching, stepper, validation, group split, coupons, success screen
-database/schema.sql     PostgreSQL schema (not connected yet)
-database/seed.sql       Seed data that matches the design
-database/README.md      ER diagram, table reference, UI-to-DB mapping, API plan, security notes
+index.html                   Page markup, icon sprite, Step 1 / Step 2 views, success + sandbox modals
+assets/css/styles.css        Theme tokens, layout, order summary, stepper, inputs, responsive base
+assets/css/checkout.css      Payment experience: 3D bag, method tiles, 3D card, MFS flow, wallet, group, modals
+assets/js/mock-data.js       Mock rows shaped like the DB tables (snake_case, money in minor units)
+assets/js/api.js             Service layer. The only place to change when the backend is ready
+assets/js/core.js            Shared state, event bus, formatting, view transitions, logo loader, modal, confetti
+assets/js/modules/card.js    Card form + live 3D card (flip on CVV, brand detection, Luhn)
+assets/js/modules/mobile.js  Mobile banking: provider -> account -> confirm -> provider authorization -> verify
+assets/js/modules/wallet.js  Purpose Wallet: balance, coverage meter, insufficient-balance handling
+assets/js/modules/group.js   Group payment: contributors, per-person requests, live status tracking
+assets/js/modules/success.js Success popup (animated check, confetti, receipt)
+assets/js/app.js             Controller: order summary, stepper, method selection, coupon, account menu
+assets/img/mfs/              Official MFS logo files go here (see its README)
+database/                    PostgreSQL schema, seed and docs (not connected yet)
 ```
 
-## Features
+## Checkout flow
 
-- **4 payment methods:** Card, Mobile Banking (bKash/Nagad/Rocket), Wallet (Google Pay/Apple Pay) and Group Payment. Each opens its own form panel.
-- **Card form:** auto-formats the number, detects the brand (Visa/Mastercard/AmEx highlight), validates with the Luhn check, masks expiry as MM / YY, and checks CVV length per brand.
-- **Group payment:** add up to 10 friends and split equally (the remainder goes to the organizer) or with custom amounts. A live check confirms the shares add up to the total.
-- **Coupons:** try `PURPOSE10` or `FLAT2000`.
-- **3-step stepper:** follows progress from Method to Details to Complete. The success screen shows a receipt and a copyable transaction ID.
-- **Responsive:** desktop (2 columns), small laptop/tablet (stacked, with the summary split into 2 columns), phones (single column, 2×2 then 1×1 method grid), down to 320px.
-- **Accessible:** method tiles act as a radio group with arrow-key navigation, inline field errors use `aria-invalid`, focus is visible, and `prefers-reduced-motion` is respected.
+1. **Step 1: choose a method.** Four tiles: Card, Mobile Banking, Wallet, Group Payment. Choosing one moves straight to Step 2.
+2. **Step 2: the matching payment interface.**
+   - **Card:** a 3D card mirrors the number, name and expiry as you type, flips to show the CVV panel while you enter it, and turns back when you finish. Brand detection (Visa/Mastercard/AmEx), Luhn check, expiry and CVV validation. The card is tokenized in the browser (`api.tokenizeCard`) and only the token reaches the backend. 3-D Secure redirects are supported.
+   - **Mobile banking:** pick a provider (11 MFS, searchable), enter the account number (Rocket needs its check digit), review the amount, then authorize on the provider's own page. OTP and PIN are entered **there**, never in this app. The backend verifies the result with the provider before success is shown.
+   - **Wallet:** Purpose Wallet balance, coverage meter and balance-after-payment. If the balance is short, a notice shows the shortfall with options to split via Group Payment or choose another method.
+   - **Group payment:** add 2–10 contributors (name, mobile number, provider; no email), split equally or with custom amounts. Each contributor gets their own provider payment request. Status (Pending → Accepted → Paid) is tracked per person, with collected/remaining totals and a progress ring. **Complete Payment** unlocks once the full amount is collected.
+3. **Complete:** a success popup with an animated check, confetti, the amount, method and transaction ID.
+
+## Sandbox vs live
+
+`api.js` has `USE_MOCK = true`. In this mode a **Sandbox** banner is shown, the provider page is a clearly labelled simulated approve/decline screen, and group contributors accept and pay on a timer. Set `USE_MOCK = false` to call the real endpoints listed in `api.js`. Successful payments are never simulated in live mode.
+
+To demo the wallet's insufficient-balance state: the mock balance is ৳92,000 against a ৳95,000 order. Apply `PURPOSE10` and the wallet covers it.
 
 ## Database
 

@@ -15,6 +15,21 @@ window.PG_MOCK = {
     avatar_url: null,
   },
 
+  /**
+   * Mirrors `user_wallets` (Purpose Wallet stored balance).
+   * 92,000 BDT is deliberately below the 95,000 order total so the
+   * "insufficient balance" state shows first; apply PURPOSE10
+   * (−5,000) and the wallet covers the order.
+   */
+  wallet: {
+    id: "wal_3f9a2c71",
+    user_id: "8f6c1d2e-4b7a-4e0e-9c1a-0a1b2c3d4e5f",
+    wallet_number_masked: "PW •••• 4821",
+    balance_minor: 9200000,
+    currency: "BDT",
+    status: "active",
+  },
+
   merchant: {
     id: "1b2c3d4e-0000-4000-8000-000000000001",
     name: "Purpose Store",
@@ -59,8 +74,8 @@ window.PG_MOCK = {
   payment_methods: [
     { code: "card", name: "Card Payment", description: "Visa, Mastercard & more", is_popular: false, sort_order: 1 },
     { code: "mobile_banking", name: "Mobile Banking", description: "bKash, Nagad, Rocket & more", is_popular: false, sort_order: 2 },
-    { code: "wallet", name: "Wallet", description: "Google Pay, Apple Pay", is_popular: false, sort_order: 3 },
-    { code: "group", name: "Group Payment", description: "Pay together", is_popular: true, sort_order: 4 },
+    { code: "wallet", name: "Wallet", description: "Pay from your Purpose Wallet balance", is_popular: false, sort_order: 3 },
+    { code: "group", name: "Group Payment", description: "Collect from friends on any mobile banking", is_popular: true, sort_order: 4 },
   ],
 
   /**
@@ -75,17 +90,17 @@ window.PG_MOCK = {
    * Rocket account numbers are the mobile number + 1 check digit → 11.
    */
   payment_providers: [
-    { code: "bkash",     method_code: "mobile_banking", name: "bKash",      name_bn: "বিকাশ",       operator_name: "BRAC Bank PLC",                      logo_url: "assets/img/mfs/bkash",     account_number_length: 10, is_featured: true,  sort_order: 1 },
-    { code: "nagad",     method_code: "mobile_banking", name: "Nagad",      name_bn: "নগদ",        operator_name: "Nagad Ltd. (Bangladesh Post Office)", logo_url: "assets/img/mfs/nagad",     account_number_length: 10, is_featured: true,  sort_order: 2 },
-    { code: "rocket",    method_code: "mobile_banking", name: "Rocket",     name_bn: "রকেট",       operator_name: "Dutch-Bangla Bank PLC",              logo_url: "assets/img/mfs/rocket",    account_number_length: 11, is_featured: true,  sort_order: 3 },
-    { code: "upay",      method_code: "mobile_banking", name: "Upay",       name_bn: "উপায়",       operator_name: "United Commercial Bank PLC",         logo_url: "assets/img/mfs/upay",      account_number_length: 10, is_featured: true,  sort_order: 4 },
-    { code: "tap",       method_code: "mobile_banking", name: "Tap",        name_bn: "ট্যাপ",       operator_name: "Trust Axiata Pay (Trust Bank PLC)",  logo_url: "assets/img/mfs/tap",       account_number_length: 10, is_featured: false, sort_order: 5 },
-    { code: "surecash",  method_code: "mobile_banking", name: "SureCash",   name_bn: "শিওরক্যাশ",    operator_name: "Rupali Bank PLC & partner banks",    logo_url: "assets/img/mfs/surecash",  account_number_length: 10, is_featured: false, sort_order: 6 },
-    { code: "ok_wallet", method_code: "mobile_banking", name: "OK Wallet",  name_bn: "ওকে ওয়ালেট",  operator_name: "ONE Bank PLC",                       logo_url: "assets/img/mfs/ok_wallet", account_number_length: 10, is_featured: false, sort_order: 7 },
-    { code: "mcash",     method_code: "mobile_banking", name: "mCash",      name_bn: "এমক্যাশ",     operator_name: "Islami Bank Bangladesh PLC",         logo_url: "assets/img/mfs/mcash",     account_number_length: 10, is_featured: false, sort_order: 8 },
-    { code: "mycash",    method_code: "mobile_banking", name: "MyCash",     name_bn: "মাইক্যাশ",    operator_name: "Mercantile Bank PLC",                logo_url: "assets/img/mfs/mycash",    account_number_length: 10, is_featured: false, sort_order: 9 },
-    { code: "firstcash", method_code: "mobile_banking", name: "FirstCash",  name_bn: "ফার্স্টক্যাশ",  operator_name: "First Security Islami Bank PLC",     logo_url: "assets/img/mfs/firstcash", account_number_length: 10, is_featured: false, sort_order: 10 },
-    { code: "cellfin",   method_code: "mobile_banking", name: "CellFin",    name_bn: "সেলফিন",      operator_name: "Islami Bank Bangladesh PLC",         logo_url: "assets/img/mfs/cellfin",   account_number_length: 10, is_featured: false, sort_order: 11 },
+    { code: "bkash",     method_code: "mobile_banking", name: "bKash",      name_bn: "বিকাশ",       operator_name: "BRAC Bank PLC",                      logo_url: "assets/img/mfs/bkash.png",     account_number_length: 10, is_featured: true,  sort_order: 1 },
+    { code: "nagad",     method_code: "mobile_banking", name: "Nagad",      name_bn: "নগদ",        operator_name: "Nagad Ltd. (Bangladesh Post Office)", logo_url: "assets/img/mfs/nagad.png",     account_number_length: 10, is_featured: true,  sort_order: 2 },
+    { code: "rocket",    method_code: "mobile_banking", name: "Rocket",     name_bn: "রকেট",       operator_name: "Dutch-Bangla Bank PLC",              logo_url: "assets/img/mfs/rocket.png",    account_number_length: 11, is_featured: true,  sort_order: 3 },
+    { code: "upay",      method_code: "mobile_banking", name: "Upay",       name_bn: "উপায়",       operator_name: "United Commercial Bank PLC",         logo_url: "assets/img/mfs/upay.png",      account_number_length: 10, is_featured: true,  sort_order: 4 },
+    { code: "tap",       method_code: "mobile_banking", name: "Tap",        name_bn: "ট্যাপ",       operator_name: "Trust Axiata Pay (Trust Bank PLC)",  logo_url: "assets/img/mfs/tap.png",       account_number_length: 10, is_featured: false, sort_order: 5 },
+    { code: "surecash",  method_code: "mobile_banking", name: "SureCash",   name_bn: "শিওরক্যাশ",    operator_name: "Rupali Bank PLC & partner banks",    logo_url: "assets/img/mfs/surecash.png",  account_number_length: 10, is_featured: false, sort_order: 6 },
+    { code: "ok_wallet", method_code: "mobile_banking", name: "OK Wallet",  name_bn: "ওকে ওয়ালেট",  operator_name: "ONE Bank PLC",                       logo_url: "assets/img/mfs/ok_wallet.png", account_number_length: 10, is_featured: false, sort_order: 7 },
+    { code: "mcash",     method_code: "mobile_banking", name: "mCash",      name_bn: "এমক্যাশ",     operator_name: "Islami Bank Bangladesh PLC",         logo_url: "assets/img/mfs/mcash.png",     account_number_length: 10, is_featured: false, sort_order: 8 },
+    { code: "mycash",    method_code: "mobile_banking", name: "MyCash",     name_bn: "মাইক্যাশ",    operator_name: "Mercantile Bank PLC",                logo_url: "assets/img/mfs/mycash.png",    account_number_length: 10, is_featured: false, sort_order: 9 },
+    { code: "firstcash", method_code: "mobile_banking", name: "FirstCash",  name_bn: "ফার্স্টক্যাশ",  operator_name: "First Security Islami Bank PLC",     logo_url: "assets/img/mfs/firstcash.png", account_number_length: 10, is_featured: false, sort_order: 10 },
+    { code: "cellfin",   method_code: "mobile_banking", name: "CellFin",    name_bn: "সেলফিন",      operator_name: "Islami Bank Bangladesh PLC",         logo_url: "assets/img/mfs/cellfin.png",   account_number_length: 10, is_featured: false, sort_order: 11 },
   ],
 
   // Mirrors the `coupons` table

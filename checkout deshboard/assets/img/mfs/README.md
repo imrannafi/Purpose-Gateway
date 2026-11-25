@@ -4,19 +4,19 @@ Put each provider's **official** logo in this folder, named by its provider `cod
 
 | File | Provider | Operator |
 |---|---|---|
-| `bkash.svg` | bKash | BRAC Bank PLC |
-| `nagad.svg` | Nagad | Nagad Ltd. (Bangladesh Post Office) |
-| `rocket.svg` | Rocket | Dutch-Bangla Bank PLC |
-| `upay.svg` | Upay | United Commercial Bank PLC |
-| `tap.svg` | Tap | Trust Axiata Pay (Trust Bank PLC) |
-| `surecash.svg` | SureCash | Rupali Bank PLC & partner banks |
-| `ok_wallet.svg` | OK Wallet | ONE Bank PLC |
-| `mcash.svg` | mCash | Islami Bank Bangladesh PLC |
-| `mycash.svg` | MyCash | Mercantile Bank PLC |
-| `firstcash.svg` | FirstCash | First Security Islami Bank PLC |
-| `cellfin.svg` | CellFin | Islami Bank Bangladesh PLC |
+| `bkash.png` | bKash | BRAC Bank PLC |
+| `nagad.png` | Nagad | Nagad Ltd. (Bangladesh Post Office) |
+| `rocket.png` | Rocket | Dutch-Bangla Bank PLC |
+| `upay.png` | Upay | United Commercial Bank PLC |
+| `tap.png` | Tap | Trust Axiata Pay (Trust Bank PLC) |
+| `surecash.png` | SureCash | Rupali Bank PLC & partner banks |
+| `ok_wallet.png` | OK Wallet | ONE Bank PLC |
+| `mcash.png` | mCash | Islami Bank Bangladesh PLC |
+| `mycash.png` | MyCash | Mercantile Bank PLC |
+| `firstcash.png` | FirstCash | First Security Islami Bank PLC |
+| `cellfin.png` | CellFin | Islami Bank Bangladesh PLC |
 
-- **Formats:** `.svg` is preferred. `.png` or `.webp` also work, ideally with a transparent background and about 320px wide. The page tries `.svg`, then `.png`, then `.webp`.
+- **Formats:** the current files are transparent PNGs, referenced explicitly by `logo_url` in `assets/js/mock-data.js` (live: the `mfs_providers.logo_url` column). To use an `.svg` instead, drop it here and change the extension in `logo_url`. If `logo_url` has no extension, the page tries `.svg`, then `.png`, then `.webp`.
 - **Proportions:** don't crop, stretch or recolour the files. The page fits each logo inside its tile (`object-fit: contain`), so any aspect ratio displays correctly.
 - **Fallback:** if a file is missing, the tile shows a neutral grey initials badge. That badge is a placeholder, not a logo.
 
